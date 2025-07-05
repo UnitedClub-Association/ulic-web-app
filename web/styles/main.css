@@ -1,0 +1,125 @@
+body {
+  font-family: 'Iceberg', sans-serif;
+  background: linear-gradient(#4B0082, #2E003E);
+  color: #ffbd59;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2 {
+  font-family: 'Blanka', sans-serif;
+  color: #FFA500;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100%;
+  background: #2E003E;
+  border-right: 2px solid #FFA500;
+  padding: 20px;
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .sidebar {
+    display: block;
+  }
+  main {
+    margin-left: 270px;
+  }
+}
+
+.sidebar h2 {
+  margin: 0;
+  font-size: 2em;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  margin: 20px 0;
+}
+
+.sidebar a {
+  color: #ffbd59;
+  text-decoration: none;
+  font-size: 1.2em;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sidebar a:hover {
+  color: #FF8C00;
+}
+
+.sidebar img {
+  width: 24px;
+  height: 24px;
+}
+
+.theme-toggle {
+  margin-top: 20px;
+}
+
+section {
+  padding: 20px;
+  margin: 20px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  border: 1px solid #FF8C00;
+}
+
+.login-section, .welcome-section, .live-events, .upcoming-events, .calendar-section, .profile-section, .learn-build, .featured-projects, .all-events {
+  max-width: 800px;
+  margin: 20px auto;
+}
+
+.mini-sections {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.badges, .games {
+  flex: 1;
+  max-width: 400px;
+}
+
+.event-card, .project-card, .badge-card {
+  background: #2E003E;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #FF8C00;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+input, select, textarea, button {
+  font-family: 'Iceberg', sans-serif;
+  padding: 10px;
+  border: 1px solid #FFA500;
+  border-radius: 5px;
+  background: #2E003E;
+  color: #ffbd59;
+}
+
+button {
+  background: #FFA500;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #FF8C00;
+}

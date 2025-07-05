@@ -1,0 +1,50 @@
+body {
+  background: linear-gradient(#4B0082, #2E003E);
+  color: #ffbd59;
+}
+
+body.light-mode {
+  background: linear-gradient(#f0f0f0, #e0e0e0);
+  color: #333;
+}
+
+body.light-mode h1, body.light-mode h2 {
+  color: #FF8C00;
+}
+
+body.light-mode .sidebar {
+  background: #e0e0e0;
+  border-right: 2px solid #FF8C00;
+}
+
+body.light-mode .sidebar a {
+  color: #333;
+}
+
+body.light-mode .sidebar a:hover {
+  color: #FFA500;
+}
+
+body.light-mode section {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid #FF8C00;
+}
+
+body.light-mode .event-card, body.light-mode .project-card, body.light-mode .badge-card {
+  background: #f0f0f0;
+  border: 1px solid #FF8C00;
+}
+
+body.light-mode input, body.light-mode select, body.light-mode textarea, body.light-mode button {
+  background: #fff;
+  color: #333;
+  border: 1px solid #FF8C00;
+}
+
+body.light-mode button {
+  background: #FF8C00;
+}
+
+body.light-mode button:hover {
+  background: #FFA500;
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#4B0082">
+  <title>ULIC - Home</title>
+  <link rel="stylesheet" href="../styles/main.css">
+  <link rel="stylesheet" href="../styles/theme.css">
+  <link rel="manifest" href="../manifest.json">
+  <link rel="icon" href="../assets/images/ulic-logo.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Iceberg&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Blanka';
+      src: url('../assets/fonts/Blanka.otf') format('opentype');
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="welcome-section">
+      <h1>Welcome, <span id="user-name">User</span>!</h1>
+    </section>
+    <section class="live-events">
+      <h2>Live Events</h2>
+      <div id="live-event-list"></div>
+    </section>
+    <section class="upcoming-events">
+      <h2>Upcoming Events</h2>
+      <div id="upcoming-event-list"></div>
+    </section>
+    <section class="mini-sections">
+      <div class="badges">
+        <h2>Badges</h2>
+        <div id="badge-list"></div>
+      </div>
+      <div class="games">
+        <h2>Games</h2>
+        <div id="game-list">Coming Soon!</div>
+      </div>
+    </section>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../scripts/app.js"></script>
+  <script src="../scripts/events.js"></script>
+  <script src="../scripts/profile.js"></script>
+  <script src="../components/sidebar.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/serviceworker.js')
+        .then(reg => console.log('Service Worker registered', reg))
+        .catch(err => console.error('Service Worker registration failed', err));
+    }
+  </script>
+</body>
+</html>

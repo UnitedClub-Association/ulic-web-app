@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#4B0082">
+  <title>ULIC - Profile</title>
+  <link rel="stylesheet" href="../styles/main.css">
+  <link rel="stylesheet" href="../styles/theme.css">
+  <link rel="icon" href="../assets/images/ulic-logo.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Iceberg&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Blanka';
+      src: url('../assets/fonts/Blanka.otf') format('opentype');
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="profile-section">
+      <h2>Profile</h2>
+      <div id="admin-badge" style="display: none;">Admin</div>
+      <form id="profile-form">
+        <label>Name: <input type="text" id="name"></label>
+        <label>Phone: <input type="tel" id="phone"></label>
+        <label>Username: <input type="text" id="username"></label>
+        <label>Bio: <textarea id="bio"></textarea></label>
+        <label>Class: <select id="class" disabled><option>VII</option><option>VIII</option><option>IX</option><option>X</option><option>XI</option><option>XII</option></select></label>
+        <label>Section: <select id="section" disabled><option>A</option><option>B</option><option>English</option></select></label>
+        <label>Roll: <input type="text" id="roll" disabled></label>
+        <label>Version: <select id="version" disabled><option>Bangla</option><option>English</option></select></label>
+        <label>Projects: <textarea id="projects" disabled></textarea></label>
+        <button type="submit">Save</button>
+      </form>
+      <form id="request-form">
+        <label>Role: <select id="role"><option>Student</option><option>Teacher</option></select></label>
+        <label>Position: <select id="position"><option>General Member</option><option>Advisor</option><option>President</option><option>Vice President</option><option>General Secretary</option><option>Teacher</option></select></label>
+        <label>Email: <input type="email" id="email"></label>
+        <button type="submit">Request Changes</button>
+      </form>
+      <div id="badges">Badges: <span id="badge-list"></span></div>
+      <div id="admin-page" style="display: none;">
+        <h2>Admin Page</h2>
+        <a href="admin.html">Manage Events</a>
+      </div>
+    </section>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../scripts/app.js"></script>
+  <script src="../scripts/profile.js"></script>
+  <script src="../components/sidebar.js"></script>
+</body>
+</html>
