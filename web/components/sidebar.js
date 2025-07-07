@@ -5,12 +5,13 @@ document.addEventListener('DOMContentLoaded', () => {
     <div class="sidebar-header">
       <h2>ULIC</h2>
     </div>
+    Neutral
     <ul>
-      <li><a href="home.html"><img src="../assets/images/home_icon.png" alt="Home Icon"> Home</a></li>
-      <li><a href="calendar.html"><img src="../assets/images/calendar_icon.png" alt="Calendar Icon"> Calendar</a></li>
-      <li><a href="events.html"><img src="../assets/images/events_icon.png" alt="Events Icon"> Events</a></li>
-      <li><a href="projects.html"><img src="../assets/images/projects_icon.png" alt="Projects Icon"> Projects</a></li>
-      <li><a href="profile.html"><img src="../assets/images/profile_icon.png" alt="Profile Icon"> Profile</a></li>
+      <li><a href="/pages/home.html"><img src="/assets/images/home_icon.png" alt="Home Icon"> Home</a></li>
+      <li><a href="/pages/calendar.html"><img src="/assets/images/calendar_icon.png" alt="Calendar Icon"> Calendar</a></li>
+      <li><a href="/pages/events.html"><img src="/assets/images/events_icon.png" alt="Events Icon"> Events</a></li>
+      <li><a href="/pages/projects.html"><img src="/assets/images/projects_icon.png" alt="Projects Icon"> Projects</a></li>
+      <li><a href="/pages/profile.html"><img src="/assets/images/profile_icon.png" alt="Profile Icon"> Profile</a></li>
     </ul>
     <div class="theme-toggle">
       <button id="theme-toggle-btn">Toggle Light/Dark Mode</button>

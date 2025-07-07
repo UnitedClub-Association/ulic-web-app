@@ -8,13 +8,21 @@ self.addEventListener('install', event => {
         '/pages/calendar.html',
         '/pages/projects.html',
         '/pages/profile.html',
+        '/pages/admin.html',
+        '/pages/lessons.html',
         '/styles/main.css',
         '/styles/theme.css',
         '/scripts/app.js',
+        '/scripts/events.js',
+        '/scripts/profile.js',
+        '/scripts/auth.js',
+        '/scripts/search.js',
+        '/components/sidebar.js',
         '/assets/images/ulic-favicon-192.png',
         '/assets/images/ulic-favicon-512.png',
         '/assets/images/ulic-hero-banner.jpg',
-        '/assets/images/ulic-logo.ico'
+        '/assets/images/ulic-logo.ico',
+        '/assets/fonts/Blanka.otf'
       ]);
     })
   );

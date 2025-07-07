@@ -1,0 +1,235 @@
+body {
+  background: linear-gradient(to right, #4B0082, #2E003E);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 16px;
+  margin: 0;
+  font-family: 'Iceberg', sans-serif;
+  color: #ffbd59;
+}
+
+.auth-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.auth-container {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  width: calc(100% / 3);
+  max-width: 400px;
+  min-height: calc(100vh * 7 / 8);
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.auth-icon {
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(to right, #FFA500, #FF8C00);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12px;
+}
+
+.icon-svg {
+  width: 28px;
+  height: 28px;
+  fill: #ffbd59;
+}
+
+.auth-header h2 {
+  font-family: 'Blanka', sans-serif;
+  font-size: 22px;
+  color: #ffbd59;
+  margin-bottom: 6px;
+}
+
+.auth-header p {
+  font-size: 13px;
+  color: #ffbd59;
+  opacity: 0.8;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 8px;
+}
+
+.form-group label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffbd59;
+  margin-bottom: 6px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffbd59;
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  line-height: 1.5;
+}
+
+.form-group input:focus {
+  border-color: #FFA500;
+  box-shadow: 0 0 6px rgba(255, 165, 0, 0.5);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.form-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.checkbox-label input {
+  width: 14px;
+  height: 14px;
+  accent-color: #FFA500;
+}
+
+.checkbox-label span {
+  font-size: 13px;
+  color: #ffbd59;
+}
+
+.form-options a, .auth-switch a, .auth-back a {
+  font-size: 13px;
+  color: #FFA500;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.form-options a:hover, .auth-switch a:hover, .auth-back a:hover {
+  color: #FF8C00;
+}
+
+.auth-button {
+  width: 100%;
+  padding: 10px;
+  background: linear-gradient(to right, #FFA500, #FF8C00);
+  color: #2E003E;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.auth-button:hover {
+  background: linear-gradient(to right, #FF8C00, #FFA500);
+}
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.auth-divider span {
+  font-size: 13px;
+  color: #ffbd59;
+  opacity: 0.8;
+  margin: 0 12px;
+}
+
+.auth-divider::before, .auth-divider::after {
+  content: '';
+  flex-grow: 1;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.auth-social {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.social-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffbd59;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.social-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.social-icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 10px;
+}
+
+.auth-switch, .auth-back {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.auth-back {
+  display: flex;
+  justify-content: center;
+}
+
+.back-icon {
+  width: 14px;
+  height: 14px;
+  margin-right: 6px;
+}
+
+.hidden {
+  display: none;
+}
