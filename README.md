@@ -1,58 +1,30 @@
-ULIC - University Laboratory ICT Club
+ULIC Web App: Project Overview
+Welcome to the ULIC Web App! This document outlines the modern and powerful technology stack we have chosen to build a fast, reliable, and scalable application.
 
-The official cross-platform application for the University Laboratory ICT Club.
+Core Technology Stack
+Our application is built on a foundation of industry-leading, production-ready technologies to ensure the best possible performance and developer experience.
 
-🚀 About ULIC
-ULIC, which stands for University Laboratory ICT Club, is the official technology and innovation club of the University Laboratory School and College (ULSC). We are a passionate community of students dedicated to exploring the vast world of Information and Communication Technology.
+Framework: Next.js (with App Router) 🚀
+We are using Next.js, a comprehensive React framework for building full-stack web applications. It provides a robust structure for creating everything from simple static pages to complex, dynamic applications that fetch data from a server.
 
-As one of the first eight clubs established at our institution, we have a foundational role in the school's extracurricular landscape. Founded in October 2024, we became a key member of the United Club Association (UCA) upon its inception in January 2025.
+Why Next.js? It offers an incredible balance of power and simplicity, with features like server-side rendering (for fast initial page loads) and a file-based routing system that makes organizing the application intuitive.
 
-Our core mission is to bridge the gap between academic learning and real-world application. We take pride in our role as the digital backbone for our fellow clubs, managing and developing the official websites and applications for every club on campus, as well as for the UCA itself.
+App Router: We are using the latest App Router paradigm. This is the recommended approach for all new Next.js applications, enabling more advanced layouts, loading states, and a cleaner project structure.
 
-📱 The ULIC App
-This repository contains the source code for the official ULIC application. This application is built to keep the members of the club up-to-date with the latest events, announcements, and projects, with a view to showcasing our talents and skills to other students.
+Language: TypeScript
+The entire project is written in TypeScript. TypeScript is a superset of JavaScript that adds static types, which helps us catch errors early in the development process before they ever reach the user.
 
-✨ Key Features
-Event Calendar: Stay updated with the latest workshops, seminars, and hackathons.
+Why TypeScript? It makes the code more readable, predictable, and easier to refactor as the application grows. It's the modern standard for professional web development.
 
-Announcements: Get real-time news and important updates directly from the club.
+Code Quality: ESLint
+To maintain a clean and consistent codebase, we have integrated ESLint. This tool automatically analyzes the code to find problems, suggest improvements, and enforce a consistent coding style.
 
-Project Showcase: Explore the innovative projects built by our members.
+Why ESLint? It helps prevent common bugs and ensures that the project remains easy to read and maintain, which is crucial for long-term success.
 
-Resource Hub: Access learning materials, tutorials, and important links.
+Styling: Standard CSS
+We have opted out of using a CSS framework like Tailwind. This gives us complete control over the application's visual style. All styling will be handled with standard CSS files, likely using a modular approach to keep styles organized and specific to the components they belong to.
 
-Member Directory: Connect with fellow tech enthusiasts within the club.
+Development Server: Turbopack
+For the best possible development experience, we've enabled Turbopack. Developed by the creators of Vercel and Next.js, Turbopack is a new, high-speed development server written in Rust.
 
-💻 Supported Platforms
-We are committed to making our app accessible to everyone, on any device. The app is being developed to run natively on:
-
-🌐 Web (as a Progressive Web App)
-
-🖥️ Desktop (Windows, macOS, Linux)
-
-📱 Mobile (Android, iOS)
-
-🛠️ Tech Stack
-This project is built with a modern, scalable, and efficient technology stack:
-
-Frontend: HTML, Plain CSS, JavaScript
-
-Backend & Database: Supabase - The open-source Firebase alternative.
-
-Cross-Platform Framework: CapacitorJS - For building native apps with web technology.
-
-PWA Support: Ensures a reliable, fast, and engaging experience on the web.
-
-🚀 Getting Started
-To get the app, please find the latest release and install the appropriate file for your operating system (e.g., the .exe file for Windows).
-
-🔐 Repository Access
-Please note, this is a closed-source project. The repository is hosted on GitHub to facilitate collaboration and streamline the development process for the authorized ULIC development team. Public contributions are not accepted at this time.
-
-📞 Contact
-ULIC - University Laboratory ICT Club
-E-mail: ulictclub2024@gmail.com
-Phone: +880 1886 150 418
-Static Website: https://ulic.netlify.app/
-
-Project Link: https://github.com/UnitedClub-Association/ulic-app
+Why Turbopack? It is significantly faster than traditional JavaScript-based servers, meaning changes to the code will be reflected in the browser almost instantly. This creates a much smoother and more efficient development workflow, especially on hardware with limited resources.

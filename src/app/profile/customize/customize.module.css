@@ -1,0 +1,113 @@
+/* This file combines styles from your original customization.css */
+
+.customizationLayout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    height: calc(100vh - 70px); /* Adjust if your main navbar height is different */
+}
+
+.customizationContent {
+    padding: 2rem 3rem;
+    overflow-y: auto;
+    height: 100%;
+}
+
+.customizationNav {
+    background: var(--card-bg);
+    border-right: 1px solid var(--border-color);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    height: 100%;
+}
+
+.navBackButton {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-family: 'Molgan', sans-serif;
+    font-size: 1.1rem;
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    transition: all 0.3s ease;
+}
+.navBackButton:hover {
+    background-color: var(--primary-glow);
+    color: var(--bg-color);
+    border-color: var(--primary-glow);
+}
+
+.navCategoryTitle {
+    font-family: 'Azonix', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+.navList { list-style: none; }
+.navLink {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem 1rem;
+    margin: 0.25rem 0;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text-color);
+    font-family: 'Molgan', sans-serif;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+.navLink i { color: var(--primary-glow); width: 20px; text-align: center; }
+.navLink:hover { background-color: var(--bg-secondary); }
+.navLink.active {
+    background-color: var(--primary-glow);
+    color: var(--bg-color);
+    font-weight: bold;
+}
+.navLink.active i { color: var(--bg-color); }
+
+.pageHeader {
+    font-family: 'Azonix', sans-serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    text-shadow: 0 0 10px var(--primary-glow);
+}
+
+.themeGrid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); 
+    gap: 1rem; 
+    margin-top: 1.5rem;
+}
+.themeButton {
+    padding: 1rem; 
+    border: 1px solid var(--border-color); 
+    background-color: var(--bg-secondary);
+    color: var(--text-muted); 
+    border-radius: 8px; 
+    cursor: pointer; 
+    transition: all 0.3s ease;
+    font-family: 'Molgan', sans-serif; 
+    text-align: center;
+}
+.themeButton:hover { 
+    border-color: var(--primary-glow); 
+    color: var(--primary-glow); 
+    transform: translateY(-3px); 
+}
+.themeButton.active {
+    border-color: var(--primary-glow); 
+    background-color: var(--primary-glow);
+    color: var(--bg-color); 
+    font-weight: bold; 
+    box-shadow: 0 0 10px var(--primary-glow);
+}
