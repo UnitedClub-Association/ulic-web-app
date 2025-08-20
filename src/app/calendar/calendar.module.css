@@ -27,10 +27,9 @@
 .calendarDay { padding: 0.5rem; aspect-ratio: 1 / 1; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 8px; border: 1px solid transparent; transition: all 0.2s ease; cursor: pointer; }
 .calendarDay.empty { cursor: default; opacity: 0.3; }
 .calendarDay:not(.empty):hover { border-color: var(--primary-glow); background-color: var(--bg-secondary); }
-.calendarDay.today { background-color: var(--primary-glow); color: var(--bg-color); font-weight: bold; }
-.dayNumber { font-size: 1.2rem; }
-.eventIndicator { width: 6px; height: 6px; border-radius: 50%; background-color: var(--secondary-glow); margin-top: 5px; }
-.calendarDay.today .eventIndicator { background-color: var(--bg-color); }
+.dayNumber { font-size: 1.2rem; display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; border: 2px solid transparent; transition: all 0.2s ease; }
+.calendarDay.hasEvent .dayNumber { border-color: var(--secondary-glow); }
+.calendarDay.today .dayNumber { background-color: var(--primary-glow); color: var(--bg-color); }
 
 /* --- Upcoming Events Panel --- */
 .upcomingEventsTitle { font-family: var(--font-primary); font-size: 1.5rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color); }
@@ -49,7 +48,7 @@
 .modalCloseBtn { position: absolute; top: 1rem; right: 1rem; background: none; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer; }
 .modalTitle { font-family: var(--font-primary); font-size: 2rem; color: var(--primary-glow); margin-bottom: 1.5rem; }
 .modalDetail { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; font-size: 1.1rem; }
-.modalDetail i { color: var(--secondary-glow); width: 20px; }
+.modalDetail i { color: var(--secondary-glow); width: 20px; text-align: center; }
 .modalDescription { color: var(--text-muted); line-height: 1.6; margin: 1.5rem 0; }
 .addToCalendarBtn { display: inline-flex; align-items: center; gap: 0.75rem; padding: 10px 20px; border-radius: 50px; background-color: var(--primary-glow); color: var(--bg-color); text-decoration: none; font-family: var(--font-secondary); transition: all 0.3s ease; }
 .addToCalendarBtn:hover { transform: scale(1.05); box-shadow: 0 0 15px var(--primary-glow); }

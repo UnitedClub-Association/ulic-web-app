@@ -1,0 +1,100 @@
+.mainContent {
+    width: 90%;
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2rem;
+}
+
+.searchContainer {
+    position: relative;
+    margin-bottom: 4rem;
+}
+
+.searchContainer i {
+    position: absolute;
+    left: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 1.2rem;
+}
+
+.searchInput {
+    width: 100%;
+    padding: 1.2rem 1.2rem 1.2rem 4rem;
+    font-size: 1.5rem;
+    font-family: var(--font-body);
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+.searchInput:focus {
+    outline: none;
+    border-color: var(--primary-glow);
+    box-shadow: 0 0 20px var(--primary-glow);
+}
+
+.discoverySection {
+    margin-bottom: 3rem;
+}
+
+.sectionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.sectionTitle {
+    font-family: var(--font-primary);
+    font-size: 1.8rem;
+    color: var(--text-color);
+}
+
+.clearButton {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-family: var(--font-secondary);
+    font-size: 1rem;
+    padding: 5px;
+}
+.clearButton:hover {
+    color: var(--primary-glow);
+}
+
+.itemGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.itemPill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    padding: 0.75rem 1.25rem;
+    border-radius: 50px;
+    font-family: var(--font-secondary);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.itemPill:hover {
+    color: var(--primary-glow);
+    border-color: var(--primary-glow);
+    transform: translateY(-3px);
+    box-shadow: 0 0 10px var(--primary-glow);
+}
+
+.itemPill i {
+    color: var(--secondary-glow);
+}

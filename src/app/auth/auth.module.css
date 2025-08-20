@@ -1,0 +1,10 @@
+.authPage { display: flex; align-items: center; justify-content: center; min-height: calc(100vh - 80px); }
+.authModal { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; width: 90%; max-width: 450px; padding: 2rem; }
+.tabContainer { display: flex; border-bottom: 1px solid var(--border-color); margin-bottom: 1.5rem; }
+.tabContainer button { background: none; border: none; color: var(--text-muted); padding: 1rem; font-size: 1.2rem; cursor: pointer; border-bottom: 2px solid transparent; }
+.tabContainer button.active { color: var(--primary-glow); border-bottom-color: var(--primary-glow); }
+.form { display: flex; flex-direction: column; gap: 1.5rem; }
+.form h2 { font-family: var(--font-primary); text-align: center; }
+.form input, .form select { background-color: var(--bg-secondary); border: 1px solid var(--border-color); color: var(--text-color); padding: 1rem; border-radius: 8px; font-size: 1rem; }
+.btnPrimary { background-color: var(--primary-glow); color: var(--bg-color); border: none; padding: 1rem; border-radius: 8px; font-family: var(--font-primary); font-size: 1.1rem; cursor: pointer; }
+.errorMessage { color: #ff3b3b; text-align: center; margin-top: 1rem; }

@@ -1,0 +1,18 @@
+.profileCard { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; }
+.banner { height: 200px; background: linear-gradient(to right, var(--primary-glow), var(--secondary-glow)); }
+.profileHeader { display: flex; align-items: flex-end; gap: 1.5rem; padding: 0 2rem; transform: translateY(-50%); }
+.profilePicture { width: 150px; height: 150px; border-radius: 50%; border: 5px solid var(--bg-color); }
+.headerInfo { flex-grow: 1; }
+.profileName { font-family: var(--font-primary); font-size: 2.5rem; }
+.profileUsername, .profilePosition { color: var(--text-muted); }
+.socialStats { display: flex; gap: 2rem; padding: 0 2rem 1.5rem; border-bottom: 1px solid var(--border-color); transform: translateY(-20%); }
+.profileBody { display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; padding: 2rem; }
+.sectionTitle { font-family: var(--font-secondary); margin-bottom: 1rem; }
+.customizationLinkWrapper { text-align: center; padding: 2rem; border-top: 1px solid var(--border-color); }
+
+/* Shared Styles */
+.btnPrimary, .btnSecondary { padding: 10px 20px; border-radius: 50px; text-decoration: none; font-family: var(--font-primary); border: 2px solid transparent; cursor: pointer; }
+.btnSecondary { background: var(--bg-secondary); border-color: var(--border-color); color: var(--text-color); }
+.btnPrimary { background-color: var(--primary-glow); color: var(--bg-color); display: inline-flex; gap: 0.5rem; align-items: center; }
+.badges { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.badge { background-color: var(--bg-secondary); padding: 5px 10px; border-radius: 5px; font-size: 0.9rem; }

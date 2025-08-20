@@ -1,15 +1,14 @@
 'use client';
-
 import { useState, useEffect, useMemo } from 'react';
 import styles from './calendar.module.css';
 
-// --- Mock Event Data (Replace with your actual data fetching logic) ---
+// --- MOCK EVENT DATA WITH END DATES ---
 const mockEvents = [
-    { id: 1, name: 'Code Jam 2024 Kick-off', date: '2025-08-01T18:00:00', location: 'Main Auditorium', description: 'The opening ceremony for the biggest coding competition of the year!' },
-    { id: 2, name: 'Workshop: Intro to React', date: '2025-08-12T14:00:00', location: 'Room 404', description: 'Learn the fundamentals of React and start building your own web apps.' },
-    { id: 3, name: 'Guest Speaker: AI in Art', date: '2025-08-22T19:30:00', location: 'Online Stream', description: 'Explore the creative frontier where artificial intelligence meets artistic expression.' },
-    { id: 4, name: 'Project Showcase Deadline', date: '2025-08-30T23:59:00', location: 'Online Submission', description: 'Final submissions for the summer projects are due.' },
-    { id: 5, name: 'September Planning Meeting', date: '2025-09-05T17:00:00', location: 'Club Room', description: 'Planning meeting for all upcoming events in September.' },
+    { id: 1, name: 'Code Jam Kick-off', date: '2025-08-01T18:00:00', endDate: '2025-08-01T20:00:00', location: 'Main Auditorium', description: 'Opening ceremony for the biggest coding competition!' },
+    { id: 2, name: 'React Workshop', date: '2025-08-12T14:00:00', endDate: '2025-08-12T17:00:00', location: 'Room 404', description: 'Learn the fundamentals of React.' },
+    { id: 3, name: 'Guest Speaker: AI in Art', date: '2025-08-22T19:30:00', endDate: '2025-08-22T21:00:00', location: 'Online Stream', description: 'Explore the creative frontier where artificial intelligence meets artistic expression.' },
+    { id: 4, name: 'Project Showcase Deadline', date: '2025-08-30T23:59:00', endDate: '2025-08-31T00:00:00', location: 'Online Submission', description: 'Final submissions for the summer projects are due.' },
+    { id: 5, name: 'September Planning Meeting', date: '2025-09-05T17:00:00', endDate: '2025-09-05T18:30:00', location: 'Club Room', description: 'Planning meeting for all upcoming events in September.' },
 ];
 
 type ClubEvent = typeof mockEvents[0];
@@ -20,7 +19,6 @@ export default function CalendarPage() {
     const [events, setEvents] = useState<ClubEvent[]>([]);
     const [selectedEvent, setSelectedEvent] = useState<ClubEvent | null>(null);
 
-    // Memoize the events for the current month to avoid re-calculating on every render
     const eventsForCurrentMonth = useMemo(() => {
         return events.filter(event => {
             const eventDate = new Date(event.date);
@@ -28,12 +26,9 @@ export default function CalendarPage() {
         });
     }, [events, currentDate]);
 
-    // Fetch events when the component mounts
     useEffect(() => {
-        // In a real app, you would fetch data for the current month here.
-        // For now, we'll just use the mock data.
         setEvents(mockEvents);
-    }, [currentDate]); // Re-fetch if the month changes
+    }, [currentDate]);
 
     const changeMonth = (amount: number) => {
         setCurrentDate(prev => {
@@ -59,10 +54,11 @@ export default function CalendarPage() {
             const isToday = day === today.getDate() && month === today.getMonth() && year === today.getFullYear();
             const eventsOnDay = eventsForCurrentMonth.filter(e => new Date(e.date).getDate() === day);
 
+            const dayClasses = `${styles.calendarDay} ${isToday ? styles.today : ''} ${eventsOnDay.length > 0 ? styles.hasEvent : ''}`;
+            
             days.push(
-                <div key={day} className={`${styles.calendarDay} ${isToday ? styles.today : ''}`} onClick={() => eventsOnDay.length > 0 && setSelectedEvent(eventsOnDay[0])}>
+                <div key={day} className={dayClasses} onClick={() => eventsOnDay.length > 0 && setSelectedEvent(eventsOnDay[0])}>
                     <span className={styles.dayNumber}>{day}</span>
-                    {eventsOnDay.length > 0 && <div className={styles.eventIndicator}></div>}
                 </div>
             );
         }
@@ -95,8 +91,7 @@ export default function CalendarPage() {
     );
 }
 
-
-// --- Sub-component for the Calendar Header ---
+// --- Sub-components ---
 function CalendarHeader({ currentDate, onMonthChange }: { currentDate: Date, onMonthChange: (amount: number) => void }) {
     return (
         <div className={styles.calendarHeader}>
@@ -109,10 +104,8 @@ function CalendarHeader({ currentDate, onMonthChange }: { currentDate: Date, onM
     );
 }
 
-// --- Sub-component for the Upcoming Events List ---
 function UpcomingEvents({ events, onEventSelect }: { events: ClubEvent[], onEventSelect: (event: ClubEvent) => void }) {
     const sortedEvents = [...events].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-    
     return (
         <div className={styles.upcomingEventsContainer}>
             <h2 className={styles.upcomingEventsTitle}>Events This Month</h2>
@@ -135,10 +128,10 @@ function UpcomingEvents({ events, onEventSelect }: { events: ClubEvent[], onEven
     );
 }
 
-// --- Sub-component for the Event Detail Modal ---
 function EventModal({ event, onClose }: { event: ClubEvent, onClose: () => void }) {
-    const eventDate = new Date(event.date);
-    const googleCalendarUrl = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.name)}&dates=${eventDate.toISOString().replace(/-|:|\.\d+/g, '')}/${new Date(eventDate.getTime() + 3600000).toISOString().replace(/-|:|\.\d+/g, '')}&details=${encodeURIComponent(event.description)}&location=${encodeURIComponent(event.location)}`;
+    const startDate = new Date(event.date);
+    const endDate = new Date(event.endDate);
+    const googleCalendarUrl = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.name)}&dates=${startDate.toISOString().replace(/-|:|\.\d+/g, '')}/${endDate.toISOString().replace(/-|:|\.\d+/g, '')}&details=${encodeURIComponent(event.description)}&location=${encodeURIComponent(event.location)}`;
 
     return (
         <div className={styles.modalBackdrop} onClick={onClose}>
@@ -147,11 +140,13 @@ function EventModal({ event, onClose }: { event: ClubEvent, onClose: () => void 
                 <h2 className={styles.modalTitle}>{event.name}</h2>
                 <div className={styles.modalDetail}>
                     <i className="fas fa-calendar-alt"></i>
-                    <span>{eventDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                    <span>{startDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}</span>
                 </div>
                 <div className={styles.modalDetail}>
                     <i className="fas fa-clock"></i>
-                    <span>{eventDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}</span>
+                    <span>
+                        {startDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })} - {endDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}
+                    </span>
                 </div>
                 <div className={styles.modalDetail}>
                     <i className="fas fa-map-marker-alt"></i>

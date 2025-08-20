@@ -3,16 +3,19 @@
 .pageHeader h1 { font-family: var(--font-primary); font-size: 3rem; text-shadow: 0 0 10px var(--primary-glow); }
 .pageHeader p { color: var(--text-muted); font-size: 1.2rem; margin-top: 0.5rem; }
 
-.filterControls { display: flex; justify-content: center; align-items: center; gap: 1rem; margin-bottom: 2.5rem; }
-.filterControls label { font-family: var(--font-secondary); font-size: 1.1rem; }
-.filterControls select { background-color: var(--bg-secondary); color: var(--text-color); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.5rem 1rem; }
+.projectLayout { display: grid; grid-template-columns: 240px 1fr; gap: 2rem; }
+.filterSidebar { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 1.5rem; align-self: start; }
+.filterSidebar h3 { font-family: var(--font-primary); margin-bottom: 1rem; }
+.filterSidebar button { display: block; width: 100%; text-align: left; background: none; border: none; color: var(--text-muted); padding: 0.75rem; border-radius: 5px; cursor: pointer; font-family: var(--font-secondary); font-size: 1rem; }
+.filterSidebar button:hover { background-color: var(--bg-secondary); color: var(--text-color); }
+.filterSidebar button.active { background-color: var(--primary-glow); color: var(--bg-color); font-weight: bold; }
 
-.cardGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 2rem; }
-.card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; backdrop-filter: blur(10px); display: flex; flex-direction: column; transition: all 0.3s ease; }
+.cardGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; }
+.card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; backdrop-filter: blur(10px); display: flex; flex-direction: column; transition: all 0.3s ease; cursor: pointer; }
 .card:hover { transform: translateY(-5px); box-shadow: 0 0 15px var(--secondary-glow); }
 .cardContent { padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1; }
 .cardHeader { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 1rem; }
-.cardHeader h3 { font-family: var(--font-secondary); font-size: 1.8rem; margin: 0; }
+.cardHeader h3 { font-family: var(--font-secondary); font-size: 1.6rem; margin: 0; }
 .statusBadge { padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-family: var(--font-primary); text-transform: uppercase; }
 .statusBadge.active { background-color: #3DDC84; color: #000; }
 .statusBadge.in-progress { background-color: #7aa2f7; color: #000; }
@@ -22,6 +25,20 @@
 .cardContent p { color: var(--text-muted); line-height: 1.6; margin-bottom: 1.5rem; flex-grow: 1; }
 .techStack { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
 .techTag { background-color: var(--bg-secondary); border: 1px solid var(--border-color); color: var(--text-muted); font-size: 0.8rem; padding: 0.25rem 0.75rem; border-radius: 15px; }
-.cardFooter { margin-top: auto; border-top: 1px solid var(--border-color); padding-top: 1rem; text-align: right; }
-.cardActionBtn { background-color: var(--primary-glow); color: var(--bg-color); padding: 0.5rem 1.2rem; border-radius: 20px; text-decoration: none; font-family: var(--font-secondary); font-weight: bold; transition: all 0.3s ease; }
-.cardActionBtn:hover { opacity: 0.8; }
+.cardFooter { margin-top: auto; border-top: 1px solid var(--border-color); padding-top: 1rem; display: flex; justify-content: space-between; align-items: center; }
+.author { color: var(--text-muted); font-style: italic; }
+.likes { color: var(--primary-glow); }
+.likes i { margin-right: 0.5rem; }
+
+/* --- MODAL STYLES --- */
+.modalBackdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; z-index: 2000; }
+.modalContent { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 2rem; width: 90%; max-width: 600px; position: relative; }
+.modalCloseBtn { position: absolute; top: 1rem; right: 1rem; background: none; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer; }
+.modalTitle { font-family: var(--font-primary); font-size: 2.2rem; margin-bottom: 1rem; }
+.modalAuthor { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; color: var(--text-muted); }
+.followBtn { background: transparent; border: 1px solid var(--border-color); color: var(--primary-glow); padding: 5px 10px; border-radius: 5px; cursor: pointer; }
+.modalDescription { line-height: 1.7; margin-bottom: 1.5rem; }
+.modalFooter { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
+.projectLinkBtn, .likeBtn { display: inline-flex; align-items: center; gap: 0.75rem; padding: 10px 20px; border-radius: 50px; text-decoration: none; font-family: var(--font-secondary); transition: all 0.3s ease; border: none; cursor: pointer; }
+.projectLinkBtn { background-color: var(--secondary-glow); color: var(--bg-color); }
+.likeBtn { background-color: var(--primary-glow); color: var(--bg-color); }

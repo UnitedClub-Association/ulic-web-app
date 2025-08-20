@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import "@/lib/fontImports.css"; // Correct path to the new CSS file
-import Navbar from "@/components/Navbar/Navbar"; // Import the new Navbar component
-import Script from "next/script";
+import "@/lib/fontImports.css";
+import Navbar from "@/components/Navbar/Navbar";
+import { AuthProvider } from "@/context/AuthContext"; // Import the provider
 
 export const metadata: Metadata = {
   title: "ULIC App",
@@ -17,7 +17,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* --- Icon Library Imports from CDN --- */}
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -27,19 +26,10 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <Navbar />
-        <main>{children}</main>
-
-        {/* --- Feather Icons Script --- */}
-        <Script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js" strategy="afterInteractive" />
-        <Script id="feather-replace" strategy="afterInteractive">
-          {`
-            // Ensure feather is available before calling replace
-            if (typeof feather !== 'undefined') {
-              feather.replace();
-            }
-          `}
-        </Script>
+        <AuthProvider> {/* Wrap everything with the AuthProvider */}
+          <Navbar />
+          <main>{children}</main>
+        </AuthProvider>
       </body>
     </html>
   );
