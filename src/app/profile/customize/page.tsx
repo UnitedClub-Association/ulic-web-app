@@ -1,7 +1,6 @@
-// This file will simply render the Themes component by default.
-// You can redirect here or directly render the component.
-import ThemesPage from './themes/page';
+// This file will now render the User Info component by default.
+import UserInfoPage from './user-info/page';
 
 export default function CustomizePage() {
-  return <ThemesPage />;
+  return <UserInfoPage />;
 }

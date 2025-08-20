@@ -33,10 +33,6 @@ export const themes: Record<string, ThemeCategory> = {
                 "--text-muted": "#565f89",
                 "--primary-glow": "#7aa2f7",
                 "--secondary-glow": "#bb9af7",
-                "--font-primary": "'Azonix', sans-serif",
-                "--font-secondary": "'Molgan', sans-serif",
-                "--font-body": "'Xeroda', sans-serif",
-                "--font-astro": "'A Astro Space', sans-serif"
             }
         },
         "synthwave-sunset": { name: "Synthwave Sunset", vars: { "--bg-color": "#21153C", "--bg-secondary": "#1a1030", "--card-bg": "rgba(49, 34, 84, 0.8)", "--border-color": "rgba(90, 69, 140, 0.5)", "--text-color": "#F5EFFF", "--text-muted": "#9A8EBF", "--primary-glow": "#FF00A8", "--secondary-glow": "#00E5FF" }},

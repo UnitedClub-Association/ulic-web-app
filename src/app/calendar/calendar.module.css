@@ -1,0 +1,58 @@
+/* --- Page Layout --- */
+.content { width: 90%; max-width: 1400px; margin: 2rem auto; padding: 2rem; position: relative; z-index: 1; }
+.pageTitle { font-family: var(--font-primary); font-size: clamp(2rem, 6vw, 3.5rem); text-align: center; margin-bottom: 0.5rem; color: var(--text-color); text-shadow: 0 0 10px var(--primary-glow); }
+.pageSubtitle { text-align: center; color: var(--text-muted); font-size: 1.1rem; margin-bottom: 3rem; }
+
+/* --- Animated Background --- */
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.backgroundShapes { position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: -1; }
+.shape { position: absolute; border: 1px solid var(--border-color); background: linear-gradient(45deg, rgba(255,255,255,0.05), rgba(255,255,255,0)); animation: spin linear infinite; opacity: 0.5; }
+.shape1 { width: 30vw; height: 30vw; top: -10vh; left: -15vw; animation-duration: 40s; }
+.shape2 { width: 20vw; height: 20vw; bottom: -5vh; right: -10vw; border-radius: 30%; animation-duration: 30s; animation-direction: reverse; }
+
+/* --- Main Calendar Layout --- */
+.calendarMainContainer { display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; align-items: flex-start; }
+.calendarContainer, .upcomingEventsContainer { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 1.5rem; }
+
+/* --- Calendar Header --- */
+.calendarHeader { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+.monthYearDisplay { font-family: var(--font-primary); font-size: 1.8rem; text-shadow: 0 0 5px var(--primary-glow); }
+.navBtn { background: transparent; border: 1px solid var(--border-color); color: var(--text-muted); width: 40px; height: 40px; border-radius: 50%; cursor: pointer; transition: all 0.2s ease; }
+.navBtn:hover { background-color: var(--primary-glow); color: var(--bg-color); border-color: var(--primary-glow); }
+
+/* --- Calendar Grid --- */
+.calendarWeekdays, .calendarGrid { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; }
+.calendarWeekdays { font-family: var(--font-secondary); color: var(--text-muted); margin-bottom: 1rem; }
+.calendarGrid { gap: 5px; }
+.calendarDay { padding: 0.5rem; aspect-ratio: 1 / 1; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 8px; border: 1px solid transparent; transition: all 0.2s ease; cursor: pointer; }
+.calendarDay.empty { cursor: default; opacity: 0.3; }
+.calendarDay:not(.empty):hover { border-color: var(--primary-glow); background-color: var(--bg-secondary); }
+.calendarDay.today { background-color: var(--primary-glow); color: var(--bg-color); font-weight: bold; }
+.dayNumber { font-size: 1.2rem; }
+.eventIndicator { width: 6px; height: 6px; border-radius: 50%; background-color: var(--secondary-glow); margin-top: 5px; }
+.calendarDay.today .eventIndicator { background-color: var(--bg-color); }
+
+/* --- Upcoming Events Panel --- */
+.upcomingEventsTitle { font-family: var(--font-primary); font-size: 1.5rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color); }
+.upcomingEventsList { max-height: 50vh; overflow-y: auto; }
+.eventItem { display: flex; align-items: center; gap: 1rem; padding: 0.8rem; border-radius: 8px; transition: background-color 0.2s ease; cursor: pointer; margin-bottom: 0.5rem; }
+.eventItem:hover { background-color: var(--bg-secondary); }
+.eventItemDate { font-family: var(--font-secondary); color: var(--text-muted); font-size: 1rem; text-align: center; width: 50px; }
+.eventItemDetails { flex-grow: 1; }
+.eventItemName { font-family: var(--font-secondary); font-size: 1.2rem; color: var(--primary-glow); }
+.eventItemTime { color: var(--text-muted); font-size: 0.9rem; }
+.eventListPlaceholder { text-align: center; color: var(--text-muted); padding: 2rem 0; }
+
+/* --- Event Modal Styles --- */
+.modalBackdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; z-index: 2000; }
+.modalContent { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 2rem; width: 90%; max-width: 500px; position: relative; box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); }
+.modalCloseBtn { position: absolute; top: 1rem; right: 1rem; background: none; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer; }
+.modalTitle { font-family: var(--font-primary); font-size: 2rem; color: var(--primary-glow); margin-bottom: 1.5rem; }
+.modalDetail { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; font-size: 1.1rem; }
+.modalDetail i { color: var(--secondary-glow); width: 20px; }
+.modalDescription { color: var(--text-muted); line-height: 1.6; margin: 1.5rem 0; }
+.addToCalendarBtn { display: inline-flex; align-items: center; gap: 0.75rem; padding: 10px 20px; border-radius: 50px; background-color: var(--primary-glow); color: var(--bg-color); text-decoration: none; font-family: var(--font-secondary); transition: all 0.3s ease; }
+.addToCalendarBtn:hover { transform: scale(1.05); box-shadow: 0 0 15px var(--primary-glow); }
+
+/* --- Responsive Design --- */
+@media (max-width: 900px) { .calendarMainContainer { grid-template-columns: 1fr; } }

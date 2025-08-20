@@ -1,9 +1,11 @@
-/* This file combines styles from your original customization.css */
-
 .customizationLayout {
     display: grid;
     grid-template-columns: 280px 1fr;
-    height: calc(100vh - 70px); /* Adjust if your main navbar height is different */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
 }
 
 .customizationContent {
@@ -29,7 +31,7 @@
     padding: 12px 20px;
     border-radius: 8px;
     text-decoration: none;
-    font-family: 'Molgan', sans-serif;
+    font-family: var(--font-secondary);
     font-size: 1.1rem;
     border: 1px solid var(--border-color);
     color: var(--text-muted);
@@ -42,7 +44,7 @@
 }
 
 .navCategoryTitle {
-    font-family: 'Azonix', sans-serif;
+    font-family: var(--font-primary);
     text-transform: uppercase;
     letter-spacing: 2px;
     font-size: 0.9rem;
@@ -60,7 +62,7 @@
     border-radius: 8px;
     text-decoration: none;
     color: var(--text-color);
-    font-family: 'Molgan', sans-serif;
+    font-family: var(--font-secondary);
     font-size: 1.1rem;
     transition: all 0.3s ease;
 }
@@ -74,7 +76,7 @@
 .navLink.active i { color: var(--bg-color); }
 
 .pageHeader {
-    font-family: 'Azonix', sans-serif;
+    font-family: var(--font-primary);
     font-size: clamp(2rem, 5vw, 3rem);
     margin-bottom: 1rem;
     padding-bottom: 1rem;
@@ -96,7 +98,7 @@
     border-radius: 8px; 
     cursor: pointer; 
     transition: all 0.3s ease;
-    font-family: 'Molgan', sans-serif; 
+    font-family: var(--font-secondary); 
     text-align: center;
 }
 .themeButton:hover { 

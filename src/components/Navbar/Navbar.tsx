@@ -15,16 +15,28 @@ export default function Navbar() {
     const pathname = usePathname(); // Hook to get the current URL path
     const optionsMenuRef = useRef<HTMLDivElement>(null); // Ref for closing the options menu
 
+    // Determine if the navbar should be hidden based on the URL path
+    const isCustomizePage = pathname.startsWith('/profile/customize');
+
     // Load state from localStorage only on the client-side
     useEffect(() => {
+        // Don't load settings if we're on a page where the nav is hidden
+        if (isCustomizePage) return;
+
         const savedPosition = localStorage.getItem('navPosition') || 'left';
         const savedMinimized = localStorage.getItem('navMinimized') === 'true';
         setPosition(savedPosition);
         setIsMinimized(savedMinimized);
-    }, []);
+    }, [isCustomizePage]); // Re-run if we navigate to/from a customize page
 
     // Effect to apply body padding and save state to localStorage
     useEffect(() => {
+        // If on a customize page, ensure padding is removed and stop.
+        if (isCustomizePage) {
+            document.body.style.padding = '0';
+            return;
+        }
+        
         document.body.style.padding = '0'; // Reset all padding first
         const isVertical = position === 'left' || position === 'right';
         const paddingValue = isVertical ? (isMinimized ? '80px' : '260px') : '70px';
@@ -36,7 +48,7 @@ export default function Navbar() {
 
         localStorage.setItem('navPosition', position);
         localStorage.setItem('navMinimized', String(isMinimized));
-    }, [position, isMinimized]);
+    }, [position, isMinimized, isCustomizePage]); // Also depends on isCustomizePage
 
     // Effect to handle clicks outside the options menu to close it
     useEffect(() => {
@@ -55,11 +67,17 @@ export default function Navbar() {
         { href: '/events', label: 'Events', icon: 'fas fa-bell fa-fw' },
         { href: '/projects', label: 'Projects', icon: 'fas fa-project-diagram fa-fw' },
         { href: '/profile', label: 'Profile', icon: 'fas fa-user fa-fw' },
+        { href: '/admin/settings', label: 'Admin', icon: 'fas fa-cogs fa-fw' },
     ];
 
     // Dynamically generate classes for the main container
     const containerClasses = `${styles.navContainer} ${styles[position]} ${isMinimized ? styles.minimized : ''}`;
     const minimizeIconStyle = { transform: isMinimized && position === 'left' ? 'rotate(180deg)' : 'rotate(0deg)' };
+
+    // Conditionally render nothing if on a customize page
+    if (isCustomizePage) {
+        return null;
+    }
 
     return (
         <div className={containerClasses}>

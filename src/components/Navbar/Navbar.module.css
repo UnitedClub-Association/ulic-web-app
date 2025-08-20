@@ -45,8 +45,15 @@
 .navHeader { display: flex; align-items: center; padding: 15px; gap: 15px; flex-shrink: 0; }
 .navLogo { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--secondary-glow, #bb9af7); transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; }
 .navLogo:hover { transform: scale(1.1); box-shadow: 0 0 15px var(--secondary-glow, #bb9af7); }
-/* Applying the custom fonts */
-.navTitle { font-family: 'Azonix', sans-serif; font-size: 1.5rem; margin: 0; color: var(--text-color, #a9b1d6); white-space: nowrap; text-shadow: 0 0 10px var(--primary-glow, #7aa2f7); }
+
+.navTitle {
+    font-family: var(--font-primary);
+    font-size: 1.5rem;
+    margin: 0;
+    color: var(--text-color, #a9b1d6);
+    white-space: nowrap;
+    text-shadow: 0 0 10px var(--primary-glow, #7aa2f7);
+}
 
 .navList { list-style: none; padding: 0; margin: 0; flex-grow: 1; }
 .navLink {
@@ -54,7 +61,7 @@
     align-items: center;
     text-decoration: none;
     color: var(--text-muted, #565f89);
-    font-family: 'Molgan', sans-serif; /* Applying custom font */
+    font-family: var(--font-secondary);
     white-space: nowrap;
     transition: all 0.3s ease-in-out;
 }
@@ -153,7 +160,7 @@
     color: var(--text-color, #a9b1d6);
     padding: 8px 15px; width: 100%; text-align: left;
     cursor: pointer; border-radius: 5px;
-    font-family: 'Molgan', sans-serif; /* Applying custom font */
+    font-family: var(--font-secondary);
     transition: all 0.3s ease-in-out;
 }
 .navOptionsMenu button:hover {

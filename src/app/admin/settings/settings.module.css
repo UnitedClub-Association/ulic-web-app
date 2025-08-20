@@ -1,0 +1,13 @@
+.mainContent { width: 90%; max-width: 1200px; margin: 2rem auto; padding: 2rem; }
+.pageHeader { text-align: center; margin-bottom: 3rem; }
+.pageHeader h1 { font-family: var(--font-primary); font-size: 3rem; text-shadow: 0 0 10px var(--primary-glow); }
+.pageHeader p { color: var(--text-muted); font-size: 1.2rem; margin-top: 0.5rem; }
+
+.settingsGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+.settingsCard { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 2rem; text-align: center; transition: all 0.3s ease; }
+.settingsCard:hover { transform: translateY(-5px); box-shadow: 0 0 20px var(--secondary-glow); border-color: var(--secondary-glow); }
+.cardIcon { font-size: 3rem; color: var(--secondary-glow); margin-bottom: 1.5rem; }
+.cardTitle { font-family: var(--font-secondary); font-size: 1.8rem; margin-bottom: 1rem; color: var(--text-color); }
+.cardDescription { color: var(--text-muted); line-height: 1.6; margin-bottom: 2rem; }
+.cardButton { background-color: var(--primary-glow); color: var(--bg-color); padding: 12px 25px; border-radius: 50px; text-decoration: none; font-family: var(--font-primary); font-size: 1rem; border: none; cursor: pointer; transition: all 0.3s ease; }
+.cardButton:hover { opacity: 0.8; box-shadow: 0 0 15px var(--primary-glow); }

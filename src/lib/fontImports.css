@@ -1,0 +1,50 @@
+/**
+ * fontImports.css
+ *
+ * This file centralizes all external font imports for the application.
+ * It prioritizes CDNFonts and falls back to Google Fonts if a font is not available there.
+ * This approach keeps the main layout file clean and makes font management easier.
+ */
+
+/* --- CDNFonts Imports --- */
+@import url('https://fonts.cdnfonts.com/css/abyssopelagic');
+@import url('https://fonts.cdnfonts.com/css/antipasto');
+@import url('https://fonts.cdnfonts.com/css/astroz');
+@import url('https://fonts.cdnfonts.com/css/avigea');
+@import url('https://fonts.cdnfonts.com/css/azonix');
+@import url('https://fonts.cdnfonts.com/css/baron-neue');
+@import url('https://fonts.cdnfonts.com/css/blanka');
+@import url('https://fonts.cdnfonts.com/css/bricolage-grotesque');
+@import url('https://fonts.cdnfonts.com/css/canavar');
+@import url('https://fonts.cdnfonts.com/css/coco-gothic');
+@import url('https://fonts.cdnfonts.com/css/eb-garamond');
+@import url('https://fonts.cdnfonts.com/css/elianto');
+@import url('https://fonts.cdnfonts.com/css/existence-light');
+@import url('https://fonts.cdnfonts.com/css/gilroy-bold');
+@import url('https://fonts.cdnfonts.com/css/lexend');
+@import url('https://fonts.cdnfonts.com/css/libre-baskerville');
+@import url('https://fonts.cdnfonts.com/css/livingston');
+@import url('https://fonts.cdnfonts.com/css/london-2');
+@import url('https://fonts.cdnfonts.com/css/luxia');
+@import url('https://fonts.cdnfonts.com/css/luxiachy');
+@import url('https://fonts.cdnfonts.com/css/made-canvas');
+@import url('https://fonts.cdnfonts.com/css/made-mirage');
+@import url('https://fonts.cdnfonts.com/css/medio');
+@import url('https://fonts.cdnfonts.com/css/molgan');
+@import url('https://fonts.cdnfonts.com/css/monument-extended');
+@import url('https://fonts.cdnfonts.com/css/montserrat');
+@import url('https://fonts.cdnfonts.com/css/nfs-font');
+@import url('https://fonts.cdnfonts.com/css/one-day');
+@import url('https://fonts.cdnfonts.com/css/quesha');
+@import url('https://fonts.cdnfonts.com/css/quicksand');
+@import url('https://fonts.cdnfonts.com/css/raleway');
+@import url('https://fonts.cdnfonts.com/css/satoshi');
+@import url('https://fonts.cdnfonts.com/css/sf-sports-night');
+@import url('https://fonts.cdnfonts.com/css/supercharge');
+@import url('https://fonts.cdnfonts.com/css/sweet-bread');
+@import url('https://fonts.cdnfonts.com/css/xeroda');
+@import url('https://fonts.cdnfonts.com/css/yuruy');
+
+
+/* --- Google Fonts Imports --- */
+@import url('https://fonts.googleapis.com/css2?family=Abel&family=Abhaya+Libre&family=Abril+Fatface&family=Aclonica&family=Acme&family=Actor&family=Adamina&family=Advent+Pro&family=Aguafina+Script&family=Akronim&family=Aladin&family=Aldrich&family=Alef&family=Alegreya&family=Alegreya+Sans&family=Alegreya+Sans+SC&family=Alex+Brush&family=Alfa+Slab+One&family=Alice&family=Alike&family=Allan&family=Allerta&family=Allura&family=Amarante&family=Amaranth&family=Amatic+SC&family=Amiri&family=Amita&family=Andika&family=Anton&family=Arapey&family=Arbutus&family=Architects+Daughter&family=Archivo&family=Archivo+Black&family=Archivo+Narrow&family=Arimo&family=Arizonia&family=Armata&family=Arsenal&family=Artifika&family=Arvo&family=Asap&family=Asset&family=Assistant&family=Atma&family=Audiowide&family=Autour+One&family=Average&family=Bad+Script&family=Balsamiq+Sans&family=Bangers&family=Barlow&family=Barlow+Condensed&family=Barriecito&family=Bebas+Neue&family=Belgrano&family=Belleza&family=BenchNine&family=Bentham&family=Berkshire+Swash&family=Besley&family=Bevan&family=Big+Shoulders+Display&family=Biryani&family=Bitter&family=Black+Ops+One&family=Bonbon&family=Boogaloo&family=Bowlby+One+SC&family=Bree+Serif&family=Bungee&family=Cabin&family=Cairo&family=Calistoga&family=Calligraffitti&family=Candal&family=Cantarell&family=Carter+One&family=Catamaran&family=Caudex&family=Caveat&family=Cedarville+Cursive&family=Changa&family=Changa+One&family=Charmonman&family=Chau+Philomene+One&family=Chewy&family=Cinzel&family=Cinzel+Decorative&family=Clicker+Script&family=Coda&family=Comfortaa&family=Coming+Soon&family=Concert+One&family=Condiment&family=Cookie&family=Cormorant&family=Cormorant+Garamond&family=Courgette&family=Crete+Round&family=Crimson+Text&family=Cuprum&family=Damion&family=Dancing+Script&family=Domine&family=Dosis&family=El+Messiri&family=Emilys+Candy&family=Encode+Sans&family=Engagement&family=Enriqueta&family=Exo+2&family=Expletus+Sans&family=Fascinate+Inline&family=Fauna+One&family=Faustina&family=Federo&family=Finger+Paint&family=Fira+Code&family=Fira+Mono&family=Fira+Sans&family=Fjalla+One&family=Fondamento&family=Francois+One&family=Frank+Ruhl+Libre&family=Fredoka+One&family=Fugaz+One&family=Gabriela&family=Gafata&family=Gentium+Book+Basic&family=GFS+Didot&family=Gilda+Display&family=Give+You+Glory&family=Glegoo&family=Gloria+Hallelujah&family=Goblin+One&family=Goudy+Bookletter+1911&family=Graduate&family=Grand+Hotel&family=Great+Vibes&family=Gruppo&family=Hammersmith+One&family=Hanuman&family=Happy+Monkey&family=Heebo&family=Henny+Penny&family=Hind&family=Holtwood+One+SC&family=Homemade+Apple&family=IBM+Plex+Mono&family=IBM+Plex+Sans&family=IBM+Plex+Serif&family=Iceberg&family=Inconsolata&family=Indie+Flower&family=Inter&family=Istok+Web&family=Italiana&family=JetBrains+Mono&family=Jockey+One&family=Josefin+Sans&family=Josefin+Slab&family=Jost&family=Jura&family=Just+Another+Hand&family=Kalam&family=Kanit&family=Karma&family=Kaushan+Script&family=Khand&family=Kranky&family=Kreon&family=Kristi&family=Lato&family=League+Spartan&family=Leckerli+One&family=Ledger&family=Lekton&family=Libre+Franklin&family=Lilita+One&family=Limelight&family=Lobster&family=Lobster+Two&family=Lora&family=Luckiest+Guy&family=Lustria&family=M+PLUS+Rounded+1c&family=Mali&family=Marcellus&family=Margarine&family=Marko+One&family=Marmelad&family=Martel&family=Marvel&family=Mate&family=Maven+Pro&family=Merriweather&family=Merriweather+Sans&family=Metal+Mania&family=Metamorphous&family=Metrophobic&family=Michroma&family=Milonga&family=Molle&family=Monda&family=Monoton&family=Monsieur+La+Doulaise&family=Mountains+of+Christmas&family=Mr+Dafoe&family=Mulish&family=Neucha&family=Neuton&family=New+Rocker&family=Nixie+One&family=Nobile&family=Norican&family=Noto+Sans&family=Noto+Serif&family=Nova+Mono&family=Nunito&family=Nunito+Sans&family=Old+Standard+TT&family=Oleo+Script&family=Open+Sans&family=Orbitron&family=Oregano&family=Oswald&family=Overlock&family=Overpass&family=Pacifico&family=Passion+One&family=Pathway+Gothic+One&family=Patrick+Hand&family=Patua+One&family=Paytone+One&family=Permanent+Marker&family=Philosopher&family=Pinyon+Script&family=Pirata+One&family=Play&family=Playball&family=Playfair+Display&family=Playfair+Display+SC&family=Poppins&family=Prata&family=Press+Start+2P&family=Proza+Libre&family=PT+Mono&family=PT+Sans&family=PT+Sans+Caption&family=PT+Sans+Narrow&family=PT+Serif&family=Quantico&family=Quattrocento&family=Quattrocento+Sans&family=Questrial&family=Rambla&family=Ranchers&family=Red+Hat+Display&family=Reem+Kufi&family=Righteous&family=Risque&family=Roboto&family=Roboto+Condensed&family=Roboto+Mono&family=Roboto+Slab&family=Rochester&family=Rock+Salt&family=Rokkitt&family=Rosarivo&family=Rubik&family=Russo+One&family=Sacramento&family=Sahitya&family=Sail&family=Saira&family=Sanchez&family=Sansita&family=Satisfy&family=Secular+One&family=Shadows+Into+Light&family=Shojumaru&family=Signika&family=Six+Caps&family=Slackey&family=Source+Code+Pro&family=Source+Sans+Pro&family=Source+Serif+Pro&family=Space+Mono&family=Special+Elite&family=Spectral&family=Squada+One&family=Sriracha&family=Strait&family=Syncopate&family=Tangerine&family=Teko&family=Telex&family=Tinos&family=Titillium+Web&family=Trocchi&family=Ubuntu&family=Ubuntu+Condensed&family=Ubuntu+Mono&family=Ultra&family=Unica+One&family=UnifrakturMaguntia&family=Unkempt&family=Unlock&family=Unna&family=Varela&family=Varela+Round&family=Vidaloka&family=Volkhov&family=Vollkorn&family=Voltaire&family=Wallpoet&family=Walter+Turncoat&family=Work+Sans&family=Yanone+Kaffeesatz&family=Yeseva+One&family=Ysabeau&family=Zilla+Slab&display=swap');

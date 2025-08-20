@@ -13,7 +13,7 @@ export default function CustomizeLayout({
   const navLinks = [
     { href: '/profile/customize/user-info', label: 'User Info', icon: 'fas fa-user-edit' },
     { href: '/profile/customize/themes', label: 'Themes', icon: 'fas fa-palette' },
-    { href: '/profile/customize/backgrounds', label: 'Backgrounds', icon: 'fas fa-layer-group' },
+    { href: '/profile/customize/fonts', label: 'Fonts', icon: 'fas fa-font' },
     { href: '/profile/customize/cursor', label: 'Cursor', icon: 'fas fa-mouse-pointer' },
   ];
 
@@ -29,7 +29,7 @@ export default function CustomizeLayout({
           <ul className={styles.navList}>
             {navLinks.map(link => (
               <li key={link.href}>
-                <Link href={link.href} className={`${styles.navLink} ${pathname === link.href ? styles.active : ''}`}>
+                <Link href={link.href} className={`${styles.navLink} ${pathname.startsWith(link.href) ? styles.active : ''}`}>
                   <i className={link.icon}></i>
                   <span>{link.label}</span>
                 </Link>
