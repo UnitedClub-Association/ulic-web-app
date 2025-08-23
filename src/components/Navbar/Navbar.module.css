@@ -3,182 +3,99 @@
     position: fixed;
     z-index: 1000;
     transition: width 0.4s ease-in-out, height 0.4s ease-in-out, transform 0.4s ease-in-out;
-}
-
-.navBar {
     background: var(--card-bg, rgba(22, 22, 30, 0.7));
     border: 1px solid var(--border-color, rgba(72, 73, 89, 0.5));
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-    display: flex;
-    width: 100%;
-    height: 100%;
-    transition: all 0.4s ease-in-out;
 }
 
-/* --- LEFT & RIGHT SIDEBAR STYLES --- */
-.navContainer.left,
-.navContainer.right {
-    top: 0;
-    height: 100vh;
-    width: 260px;
-}
+/* --- SIZING --- */
+.navContainer.left, .navContainer.right { top: 0; height: 100vh; width: 260px; }
 .navContainer.left { left: 0; }
 .navContainer.right { right: 0; }
-.navContainer.left .navBar,
-.navContainer.right .navBar { flex-direction: column; }
-
-/* --- TOP & BOTTOM NAVBAR STYLES --- */
-.navContainer.top,
-.navContainer.bottom {
-    left: 0;
-    width: 100vw;
-    height: 70px;
-}
+.navContainer.top, .navContainer.bottom { left: 0; width: 100vw; height: 70px; }
 .navContainer.top { top: 0; }
 .navContainer.bottom { bottom: 0; }
-.navContainer.top .navBar,
-.navContainer.bottom .navBar { flex-direction: row; align-items: center; }
-
-/* --- GENERAL ELEMENT STYLING --- */
-.navHeader { display: flex; align-items: center; padding: 15px; gap: 15px; flex-shrink: 0; }
-.navLogo { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--secondary-glow, #bb9af7); transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; }
-.navLogo:hover { transform: scale(1.1); box-shadow: 0 0 15px var(--secondary-glow, #bb9af7); }
-
-.navTitle {
-    font-family: var(--font-primary);
-    font-size: 1.5rem;
-    margin: 0;
-    color: var(--text-color, #a9b1d6);
-    white-space: nowrap;
-    text-shadow: 0 0 10px var(--primary-glow, #7aa2f7);
-}
-
-.navList { list-style: none; padding: 0; margin: 0; flex-grow: 1; }
-.navLink {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: var(--text-muted, #565f89);
-    font-family: var(--font-secondary);
-    white-space: nowrap;
-    transition: all 0.3s ease-in-out;
-}
-.navLink i { width: 20px; text-align: center; color: var(--primary-glow, #7aa2f7); transition: color 0.3s ease-in-out; }
-
-.navLink:hover {
-    background-color: var(--primary-glow, #7aa2f7);
-    color: var(--bg-color, #1a1b26);
-    transform: scale(1.05);
-    box-shadow: 0 0 15px var(--primary-glow, #7aa2f7);
-}
-.navLink:hover i { color: var(--bg-color, #1a1b26); }
-
-.navLink.active {
-    background-color: var(--secondary-glow, #bb9af7);
-    color: var(--bg-color, #1a1b26);
-    font-weight: bold;
-    box-shadow: 0 0 15px var(--secondary-glow, #bb9af7);
-}
-.navLink.active i { color: var(--bg-color, #1a1b26); }
-
-.navFooter { display: flex; align-items: center; padding: 15px; gap: 15px; border-top: 1px solid var(--border-color, rgba(72, 73, 89, 0.5)); }
-
-/* --- STYLING FOR VERTICAL MODE (SIDEBARS) --- */
-.navContainer.left .navList,
-.navContainer.right .navList { padding: 0 10px; }
-.navContainer.left .navLink,
-.navContainer.right .navLink { padding: 15px; margin: 4px 0; border-radius: 10px; font-size: 1.1rem; }
-.navContainer.left .navLink i,
-.navContainer.right .navLink i { margin-right: 20px; }
-.navContainer.left .navFooter,
-.navContainer.right .navFooter { justify-content: space-between; }
-.navContainer.top .navFooter,
-.navContainer.bottom .navFooter { border-top: none; }
-
-
-/* --- STYLING FOR HORIZONTAL MODE (TOP/BOTTOM) --- */
-.navContainer.top .navList,
-.navContainer.bottom .navList { display: flex; justify-content: center; height: 100%; }
-.navContainer.top .navLink,
-.navContainer.bottom .navLink { padding: 0 20px; height: 100%; border-radius: 0; }
-.navContainer.top .navLink span,
-.navContainer.bottom .navLink span { display: none; }
-.navContainer.top .navFooter,
-.navContainer.bottom .navFooter { margin-left: auto; }
-#minimizeBtn { display: block; }
-.navContainer.top #minimizeBtn,
-.navContainer.bottom #minimizeBtn { display: none; }
-
-/* --- MINIMIZED STATE (Only for Left/Right Sidebars) --- */
 .navContainer.minimized { width: 80px; }
-.navContainer.minimized .navTitle,
-.navContainer.minimized .navLink span { display: none; }
-.navContainer.minimized .navHeader { justify-content: center; }
-.navContainer.minimized .navLink { justify-content: center; }
-.navContainer.minimized .navLink i { margin-right: 0; }
-.navContainer.minimized .navFooter { justify-content: center; }
-.navContainer.minimized .navOptionsContainer { display: none; }
 
-/* --- OPTIONS MENU --- */
-.navIconBtn {
-    background: none;
-    border: none;
-    color: var(--text-muted, #565f89);
-    font-size: 1.2rem;
-    cursor: pointer;
-    padding: 5px;
-    transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
-}
+/*
+============================================================
+--- 1. VERTICAL SIDEBAR STYLES ---
+============================================================
+*/
+.navBarVertical { display: flex; flex-direction: column; width: 100%; height: 100%; }
+.navHeader { display: flex; align-items: center; padding: 15px; gap: 15px; flex-shrink: 0; }
+.navLogo { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--secondary-glow, #bb9af7); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.navLogo:hover { transform: scale(1.1); box-shadow: 0 0 15px var(--secondary-glow, #bb9af7); }
+.navTitle { font-family: var(--font-primary); font-size: 1.5rem; color: var(--text-color, #a9b1d6); white-space: nowrap; text-shadow: 0 0 10px var(--primary-glow, #7aa2f7); }
+
+.navListVertical { list-style: none; padding: 0 10px; margin: 0; flex-grow: 1; }
+.navLinkVertical { display: flex; align-items: center; text-decoration: none; color: var(--text-muted, #565f89); font-family: var(--font-secondary); white-space: nowrap; position: relative; transition: background-color 0.3s ease, color 0.3s ease; padding: 15px; margin: 4px 0; border-radius: 10px; font-size: 1.1rem; }
+.navLinkVertical::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%) scaleY(0); width: 4px; height: 60%; background-color: var(--secondary-glow); border-radius: 2px; transition: transform 0.3s ease-in-out; }
+.navLinkVertical:hover { background-color: rgba(187, 154, 247, 0.1); color: var(--text-color); }
+.navLinkVertical.active { color: var(--text-color); font-weight: bold; background-color: rgba(187, 154, 247, 0.15); }
+.navLinkVertical.active::before, .navLinkVertical:hover::before { transform: translateY(-50%) scaleY(1); }
+.navLinkVertical i { width: 20px; text-align: center; color: var(--primary-glow, #7aa2f7); transition: color 0.3s ease-in-out; margin-right: 20px; }
+.navLinkVertical.active i, .navLinkVertical:hover i { color: var(--secondary-glow); }
+
+.navFooter { display: flex; flex-direction: column; padding: 10px 15px; gap: 10px; border-top: 1px solid var(--border-color, rgba(72, 73, 89, 0.5)); margin-top: auto; }
+.footerUserSection { width: 100%; }
+.footerControls { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+.userProfileButton { display: flex; align-items: center; gap: 10px; background: none; border: none; color: var(--text-color); cursor: pointer; font-family: var(--font-secondary); font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; padding: 5px; border-radius: 8px; transition: background-color 0.3s ease; position: relative; }
+.userProfileButton:hover { background-color: var(--bg-secondary); }
+.userProfileButton img { border-radius: 50%; }
+.loginButton { width: 100%; justify-content: flex-start; border: 1px solid var(--border-color); }
+
+.minimized .navTitle, .minimized .navLinkVertical span:not(.tooltip), .minimized .userProfileButton span:not(.tooltip) { display: none; }
+.minimized .navHeader, .minimized .navFooter { align-items: center; }
+.minimized .navLinkVertical { justify-content: center; }
+.minimized .navLinkVertical i { margin-right: 0; font-size: 1.2rem; }
+.minimized .footerControls { justify-content: center; }
+.minimized .navOptionsContainer:not(:has(.userProfileButton)) { display: none; }
+
+/*
+============================================================
+--- 2. HORIZONTAL TOP/BOTTOM BAR STYLES ---
+============================================================
+*/
+.navBarHorizontal { display: flex; align-items: center; justify-content: space-between; width: 100%; height: 100%; padding: 0 25px; }
+.navListHorizontal { display: flex; justify-content: center; align-items: center; height: 100%; list-style: none; padding: 0; margin: 0; }
+.navLinkHorizontal { display: flex; align-items: center; justify-content: center; height: 44px; width: 44px; color: var(--text-muted, #565f89); text-decoration: none; position: relative; border-radius: 8px; transition: background-color 0.3s ease, color 0.3s ease; }
+.navLinkHorizontal i { font-size: 1.2rem; }
+.navLinkHorizontal:hover { background-color: rgba(187, 154, 247, 0.1); color: var(--text-color); }
+.navLinkHorizontal.active { background-color: rgba(187, 154, 247, 0.15); color: var(--secondary-glow); }
+.navControlsHorizontal { display: flex; align-items: center; gap: 15px; }
+.userAvatarButton { background: none; border: 2px solid transparent; border-radius: 50%; padding: 0; cursor: pointer; transition: border-color 0.3s ease; display: flex; align-items: center; justify-content: center; }
+.userAvatarButton:hover { border-color: var(--secondary-glow); }
+.userAvatarButton img { border-radius: 50%; }
+.horizontalLoginButton { display: flex; align-items: center; padding: 8px 16px; border: 1px solid var(--border-color); border-radius: 8px; background-color: transparent; color: var(--text-color); text-decoration: none; font-family: var(--font-secondary); font-size: 0.9rem; transition: background-color 0.3s ease, border-color 0.3s ease; white-space: nowrap; }
+.horizontalLoginButton:hover { background-color: var(--primary-glow); border-color: var(--primary-glow); color: var(--bg-color); }
+
+/*
+============================================================
+--- 3. SHARED STYLES (Menus, Tooltips, etc.) ---
+============================================================
+*/
+.navIconBtn { background: none; border: none; color: var(--text-muted, #565f89); font-size: 1.2rem; cursor: pointer; padding: 5px; transition: color 0.3s ease, transform 0.3s ease; position: relative; }
 .navIconBtn:hover { color: var(--primary-glow, #7aa2f7); transform: scale(1.1); }
-
 .navOptionsContainer { position: relative; }
-.navOptionsMenu {
-    display: none;
-    position: absolute;
-    background-color: var(--bg-secondary, #16161e);
-    border: 1px solid var(--border-color, rgba(72, 73, 89, 0.5));
-    border-radius: 8px;
-    padding: 5px;
-    box-shadow: 0 0 15px var(--primary-glow, #7aa2f7);
-    width: 150px;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-}
+.navOptionsMenu { display: none; position: absolute; background-color: var(--bg-secondary, #16161e); border: 1px solid var(--border-color, rgba(72, 73, 89, 0.5)); border-radius: 8px; padding: 5px; box-shadow: 0 0 15px rgba(0,0,0,0.5); width: 200px; opacity: 0; transform: translateY(10px); transition: opacity 0.3s ease, transform 0.3s ease; z-index: 1100; }
 .navOptionsMenu.show { display: block; opacity: 1; transform: translateY(0); }
 
-.navContainer.left .navOptionsMenu,
-.navContainer.right .navOptionsMenu { bottom: 100%; margin-bottom: 10px; left: 50%; transform: translateX(-50%) translateY(0); }
+/* --- **FIXED**: Menu Positioning Logic --- */
+.navContainer.left .navOptionsMenu, .navContainer.right .navOptionsMenu { bottom: 100%; margin-bottom: 10px; left: 0; }
 .navContainer.top .navOptionsMenu { top: 100%; margin-top: 10px; right: 0; }
-.navContainer.bottom .navOptionsMenu { bottom: 100%; margin-bottom: 10px; right: 0; }
+.navContainer.bottom .navOptionsMenu { bottom: 100%; margin-bottom: 10px; right: 0; } /* Opens upwards */
 
-.navOptionsMenu button {
-    display: flex; align-items: center; gap: 10px;
-    background: none; border: none;
-    color: var(--text-color, #a9b1d6);
-    padding: 8px 15px; width: 100%; text-align: left;
-    cursor: pointer; border-radius: 5px;
-    font-family: var(--font-secondary);
-    transition: all 0.3s ease-in-out;
-}
-.navOptionsMenu button:hover {
-    background-color: var(--primary-glow, #7aa2f7);
-    color: var(--bg-color, #1a1b26);
-    transform: translateX(5px);
-}
-.navOptionsMenu button i { color: var(--secondary-glow, #bb9af7); }
-.navOptionsMenu button:hover i { color: var(--bg-color, #1a1b26); }
-
-.navOptionsMenu button.active {
-    background-color: var(--secondary-glow, #bb9af7);
-    color: var(--bg-color, #1a1b26);
-    font-weight: bold;
-}
+.menuButton, .navOptionsMenu button { display: flex; align-items: center; gap: 10px; background: none; border: none; color: var(--text-color, #a9b1d6); padding: 10px 15px; width: 100%; text-align: left; cursor: pointer; border-radius: 5px; font-family: var(--font-secondary); font-size: 1rem; transition: all 0.3s ease-in-out; text-decoration: none; }
+.menuButton:hover, .navOptionsMenu button:hover { background-color: var(--primary-glow, #7aa2f7); color: var(--bg-color, #1a1b26); transform: translateX(5px); }
+.menuButton i, .navOptionsMenu button i { color: var(--secondary-glow, #bb9af7); transition: color 0.3s ease; }
+.menuButton:hover i, .navOptionsMenu button:hover i { color: var(--bg-color, #1a1b26); }
+.navOptionsMenu button.active { background-color: var(--secondary-glow, #bb9af7); color: var(--bg-color, #1a1b26); font-weight: bold; }
 .navOptionsMenu button.active i { color: var(--bg-color, #1a1b26); }
-
-/* Positioning icons for position chooser */
-.iconLeft { transform: rotate(-90deg); }
-.iconRight { transform: rotate(90deg); }
-.iconBottom { transform: rotate(180deg); }
+.tooltip { position: absolute; padding: 5px 12px; background-color: var(--bg-secondary, #16161e); border: 1px solid var(--border-color); color: var(--text-color, #a9b1d6); border-radius: 6px; font-size: 0.9rem; font-family: var(--font-secondary); white-space: nowrap; box-shadow: 0 4px 12px rgba(0,0,0,0.4); z-index: 1200; opacity: 0; visibility: hidden; transition: opacity 0.2s ease, visibility 0.2s ease; pointer-events: none; }
+.navContainer.left .tooltip { top: 50%; transform: translateY(-50%); left: 100%; margin-left: 15px; }
+.navContainer.right .tooltip { top: 50%; transform: translateY(-50%); right: 100%; margin-right: 15px; }
+.navContainer.top .tooltip, .navContainer.bottom .tooltip { top: 100%; left: 50%; transform: translateX(-50%); margin-top: 10px; }
+:hover > .tooltip { visibility: visible; opacity: 1; transition-delay: 0.4s; }
