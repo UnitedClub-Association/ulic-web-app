@@ -3,6 +3,8 @@ import { useState } from 'react';
 import styles from './auth.module.css';
 import { createClient } from '@/lib/supabase/client';
 import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
+import { useAuth } from '@/context/AuthContext';
 
 export default function AuthPage() {
     const [isLoginView, setIsLoginView] = useState(true);
@@ -10,50 +12,45 @@ export default function AuthPage() {
     const [password, setPassword] = useState('');
     const [fullName, setFullName] = useState('');
     const [status, setStatus] = useState('Student');
-    const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState(false);
     const supabase = createClient();
     const router = useRouter();
+    const { refreshUser } = useAuth(); // Get the refresh function
 
     const handleSignUp = async (e: React.FormEvent) => {
         e.preventDefault();
-        setError(null);
-        
+        setLoading(true);
+        const toastId = toast.loading('Creating your account...');
+
         const { data, error } = await supabase.auth.signUp({
             email,
             password,
             options: {
                 data: {
                     full_name: fullName,
-                    // Note: We sync status/role via a database trigger after profile creation
                 },
             },
         });
 
         if (error) {
-            setError(error.message);
-        } else if (data.user) {
-            // After signing up, we need to create a corresponding profile
-            const { error: profileError } = await supabase.from('profiles').insert({
-                id: data.user.id,
-                full_name: fullName,
-                // A secure way to get a unique username is needed in a real app
-                username: `@${fullName.toLowerCase().replace(/\s/g, '')}${Math.floor(Math.random() * 1000)}`,
-                status: status,
-                // Role will be set by the database trigger
+            toast.error(error.message, { id: toastId });
+        } else {
+            toast.success('Success! Please check your inbox to verify your email.', {
+                id: toastId,
+                duration: 6000
             });
-
-            if (profileError) {
-                setError(profileError.message);
-            } else {
-                alert('Sign up successful! Please check your email to verify.');
-                router.push('/');
-            }
+            setEmail('');
+            setPassword('');
+            setFullName('');
+            setIsLoginView(true);
         }
+        setLoading(false);
     };
 
     const handleSignIn = async (e: React.FormEvent) => {
         e.preventDefault();
-        setError(null);
+        setLoading(true);
+        const toastId = toast.loading('Signing in...');
 
         const { error } = await supabase.auth.signInWithPassword({
             email,
@@ -61,10 +58,14 @@ export default function AuthPage() {
         });
 
         if (error) {
-            setError(error.message);
+            toast.error(error.message, { id: toastId });
         } else {
+            // **CRITICAL FIX**: Refresh user data BEFORE redirecting to prevent login loop
+            await refreshUser(); 
+            toast.success('Welcome back!', { id: toastId });
             router.push('/profile');
         }
+        setLoading(false);
     };
 
     return (
@@ -80,7 +81,9 @@ export default function AuthPage() {
                         <h2>Welcome Back!</h2>
                         <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} required />
                         <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} required />
-                        <button type="submit" className={styles.btnPrimary}>Login</button>
+                        <button type="submit" className={styles.btnPrimary} disabled={loading}>
+                            {loading ? 'Logging in...' : 'Login'}
+                        </button>
                     </form>
                 ) : (
                     <form onSubmit={handleSignUp} className={styles.form}>
@@ -93,10 +96,11 @@ export default function AuthPage() {
                             <option value="Teacher">Teacher</option>
                             <option value="Other">Other</option>
                         </select>
-                        <button type="submit" className={styles.btnPrimary}>Sign Up</button>
+                        <button type="submit" className={styles.btnPrimary} disabled={loading}>
+                            {loading ? 'Creating Account...' : 'Sign Up'}
+                        </button>
                     </form>
                 )}
-                {error && <p className={styles.errorMessage}>{error}</p>}
             </div>
         </div>
     );

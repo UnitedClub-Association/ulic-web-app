@@ -1,34 +1,53 @@
 'use client';
 import { useState, useEffect, useMemo } from 'react';
 import styles from './calendar.module.css';
+import { createClient } from '@/lib/supabase/client';
+import toast from 'react-hot-toast';
 
-// --- MOCK EVENT DATA WITH END DATES ---
-const mockEvents = [
-    { id: 1, name: 'Code Jam Kick-off', date: '2025-08-01T18:00:00', endDate: '2025-08-01T20:00:00', location: 'Main Auditorium', description: 'Opening ceremony for the biggest coding competition!' },
-    { id: 2, name: 'React Workshop', date: '2025-08-12T14:00:00', endDate: '2025-08-12T17:00:00', location: 'Room 404', description: 'Learn the fundamentals of React.' },
-    { id: 3, name: 'Guest Speaker: AI in Art', date: '2025-08-22T19:30:00', endDate: '2025-08-22T21:00:00', location: 'Online Stream', description: 'Explore the creative frontier where artificial intelligence meets artistic expression.' },
-    { id: 4, name: 'Project Showcase Deadline', date: '2025-08-30T23:59:00', endDate: '2025-08-31T00:00:00', location: 'Online Submission', description: 'Final submissions for the summer projects are due.' },
-    { id: 5, name: 'September Planning Meeting', date: '2025-09-05T17:00:00', endDate: '2025-09-05T18:30:00', location: 'Club Room', description: 'Planning meeting for all upcoming events in September.' },
-];
-
-type ClubEvent = typeof mockEvents[0];
+// Define the type for an event to match your Supabase table
+type ClubEvent = {
+    id: string;
+    name: string;
+    description: string;
+    start_time: string;
+    end_time: string;
+    location: string;
+};
 
 // --- Main Calendar Component ---
 export default function CalendarPage() {
     const [currentDate, setCurrentDate] = useState(new Date());
     const [events, setEvents] = useState<ClubEvent[]>([]);
     const [selectedEvent, setSelectedEvent] = useState<ClubEvent | null>(null);
+    const [loading, setLoading] = useState(true);
+    const supabase = createClient();
+
+    // Fetch events from Supabase when the component mounts or the date changes
+    useEffect(() => {
+        const fetchEvents = async () => {
+            setLoading(true);
+            const { data, error } = await supabase
+                .from('events')
+                .select('*')
+                .order('start_time', { ascending: true });
+            
+            if (error) {
+                toast.error("Could not fetch calendar events.");
+                console.error("Calendar fetch error:", error);
+            } else {
+                setEvents(data);
+            }
+            setLoading(false);
+        };
+        fetchEvents();
+    }, [supabase]);
 
     const eventsForCurrentMonth = useMemo(() => {
         return events.filter(event => {
-            const eventDate = new Date(event.date);
+            const eventDate = new Date(event.start_time);
             return eventDate.getFullYear() === currentDate.getFullYear() && eventDate.getMonth() === currentDate.getMonth();
         });
     }, [events, currentDate]);
-
-    useEffect(() => {
-        setEvents(mockEvents);
-    }, [currentDate]);
 
     const changeMonth = (amount: number) => {
         setCurrentDate(prev => {
@@ -52,7 +71,7 @@ export default function CalendarPage() {
 
         for (let day = 1; day <= daysInMonth; day++) {
             const isToday = day === today.getDate() && month === today.getMonth() && year === today.getFullYear();
-            const eventsOnDay = eventsForCurrentMonth.filter(e => new Date(e.date).getDate() === day);
+            const eventsOnDay = eventsForCurrentMonth.filter(e => new Date(e.start_time).getDate() === day);
 
             const dayClasses = `${styles.calendarDay} ${isToday ? styles.today : ''} ${eventsOnDay.length > 0 ? styles.hasEvent : ''}`;
             
@@ -81,7 +100,7 @@ export default function CalendarPage() {
                         <div className={styles.calendarWeekdays}>
                             <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
                         </div>
-                        <div className={styles.calendarGrid}>{renderCalendarGrid()}</div>
+                        <div className={styles.calendarGrid}>{loading ? <p>Loading...</p> : renderCalendarGrid()}</div>
                     </div>
                     <UpcomingEvents events={eventsForCurrentMonth} onEventSelect={setSelectedEvent} />
                 </div>
@@ -91,7 +110,7 @@ export default function CalendarPage() {
     );
 }
 
-// --- Sub-components ---
+// --- Sub-components (Updated to use dynamic data properties) ---
 function CalendarHeader({ currentDate, onMonthChange }: { currentDate: Date, onMonthChange: (amount: number) => void }) {
     return (
         <div className={styles.calendarHeader}>
@@ -105,7 +124,7 @@ function CalendarHeader({ currentDate, onMonthChange }: { currentDate: Date, onM
 }
 
 function UpcomingEvents({ events, onEventSelect }: { events: ClubEvent[], onEventSelect: (event: ClubEvent) => void }) {
-    const sortedEvents = [...events].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    const sortedEvents = [...events].sort((a, b) => new Date(a.start_time).getTime() - new Date(b.start_time).getTime());
     return (
         <div className={styles.upcomingEventsContainer}>
             <h2 className={styles.upcomingEventsTitle}>Events This Month</h2>
@@ -113,11 +132,11 @@ function UpcomingEvents({ events, onEventSelect }: { events: ClubEvent[], onEven
                 {sortedEvents.length > 0 ? sortedEvents.map(event => (
                     <div key={event.id} className={styles.eventItem} onClick={() => onEventSelect(event)}>
                         <div className={styles.eventItemDate}>
-                            {new Date(event.date).toLocaleDateString('en-US', { weekday: 'short', day: 'numeric' })}
+                            {new Date(event.start_time).toLocaleDateString('en-US', { weekday: 'short', day: 'numeric' })}
                         </div>
                         <div className={styles.eventItemDetails}>
                             <h3 className={styles.eventItemName}>{event.name}</h3>
-                            <p className={styles.eventItemTime}>{new Date(event.date).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}</p>
+                            <p className={styles.eventItemTime}>{new Date(event.start_time).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}</p>
                         </div>
                     </div>
                 )) : (
@@ -129,8 +148,8 @@ function UpcomingEvents({ events, onEventSelect }: { events: ClubEvent[], onEven
 }
 
 function EventModal({ event, onClose }: { event: ClubEvent, onClose: () => void }) {
-    const startDate = new Date(event.date);
-    const endDate = new Date(event.endDate);
+    const startDate = new Date(event.start_time);
+    const endDate = new Date(event.end_time);
     const googleCalendarUrl = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.name)}&dates=${startDate.toISOString().replace(/-|:|\.\d+/g, '')}/${endDate.toISOString().replace(/-|:|\.\d+/g, '')}&details=${encodeURIComponent(event.description)}&location=${encodeURIComponent(event.location)}`;
 
     return (

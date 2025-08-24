@@ -2,25 +2,29 @@
 import { useState, useEffect } from 'react';
 import styles from './search.module.css';
 import { useRouter } from 'next/navigation';
-
-// --- MOCK DATA ---
-const trendingItems = [
-  { type: 'tag', value: 'Web Dev' },
-  { type: 'user', value: '@sazidur62' },
-  { type: 'project', value: 'ULIC Club Website' },
-  { type: 'event', value: 'React Workshop' },
-  { type: 'tag', value: 'Competition' },
-  { type: 'user', value: '@janedoe_dev' },
-];
+import { createClient } from '@/lib/supabase/client';
+import Image from 'next/image';
+import toast from 'react-hot-toast';
 
 const MAX_RECENT_SEARCHES = 7;
 
+type SearchResult = {
+    id: string;
+    type: 'profile';
+    full_name: string;
+    username: string;
+    avatar_url: string;
+};
+
 export default function SearchPage() {
     const [searchTerm, setSearchTerm] = useState('');
+    const [results, setResults] = useState<SearchResult[]>([]);
+    const [loading, setLoading] = useState(false);
+    const [hasSearched, setHasSearched] = useState(false); // Track if a search has been performed
     const [recentSearches, setRecentSearches] = useState<string[]>([]);
     const router = useRouter();
+    const supabase = createClient();
 
-    // Load recent searches from localStorage on initial render
     useEffect(() => {
         const savedSearches = localStorage.getItem('ulic-recent-searches');
         if (savedSearches) {
@@ -28,27 +32,51 @@ export default function SearchPage() {
         }
     }, []);
 
-    const handleSearch = (query: string) => {
-        if (!query.trim()) return;
+    const handleSearch = async (query: string) => {
+        setHasSearched(true); // Mark that a search has occurred
+        if (!query.trim()) {
+            setResults([]);
+            return;
+        }
 
-        // Update recent searches
-        const updatedSearches = [query, ...recentSearches.filter(s => s !== query)].slice(0, MAX_RECENT_SEARCHES);
+        setLoading(true);
+        const { data, error } = await supabase
+            .from('profiles')
+            .select('id, full_name, username, avatar_url')
+            .or(`full_name.ilike.%${query}%,username.ilike.%${query}%`)
+            .limit(10);
+
+        if (error) {
+            console.error("Search error:", error);
+            toast.error("Failed to perform search.");
+        } else {
+            const formattedResults = data.map(profile => ({ ...profile, type: 'profile' as const }));
+            setResults(formattedResults);
+        }
+        setLoading(false);
+    };
+    
+    const updateRecentSearches = (query: string) => {
+        const updatedSearches = [query, ...recentSearches.filter(s => s.toLowerCase() !== query.toLowerCase())].slice(0, MAX_RECENT_SEARCHES);
         setRecentSearches(updatedSearches);
         localStorage.setItem('ulic-recent-searches', JSON.stringify(updatedSearches));
-
-        // For now, let's just log it. Later, this can navigate to a results page.
-        console.log(`Searching for: ${query}`);
-        // Example navigation: router.push(`/search/results?q=${encodeURIComponent(query)}`);
     };
 
     const handleFormSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        handleSearch(searchTerm);
+        const trimmedSearch = searchTerm.trim();
+        if (!trimmedSearch) return;
+        updateRecentSearches(trimmedSearch);
+        handleSearch(trimmedSearch);
     };
     
-    const clearRecentSearches = () => {
-        setRecentSearches([]);
-        localStorage.removeItem('ulic-recent-searches');
+    const handleRecentSearchClick = (query: string) => {
+        setSearchTerm(query);
+        handleSearch(query);
+    };
+    
+    const handleResultClick = (username: string) => {
+        router.push(`/profile/${username}`);
     };
 
     return (
@@ -57,46 +85,60 @@ export default function SearchPage() {
                 <i className="fas fa-search"></i>
                 <input 
                     type="text" 
-                    placeholder="Search by tag, name, or @username..." 
+                    placeholder="Search for users by name or @username..." 
                     className={styles.searchInput}
                     value={searchTerm}
                     onChange={e => setSearchTerm(e.target.value)}
                 />
             </form>
 
-            {/* --- Trending Section --- */}
-            <section className={styles.discoverySection}>
-                <h2 className={styles.sectionTitle}>Trending Now</h2>
-                <div className={styles.itemGrid}>
-                    {trendingItems.map((item, index) => (
-                        <button key={index} className={styles.itemPill} onClick={() => handleSearch(item.value)}>
-                            {item.type === 'tag' && <i className="fas fa-hashtag"></i>}
-                            {item.type === 'user' && <i className="fas fa-user"></i>}
-                            {item.type === 'project' && <i className="fas fa-project-diagram"></i>}
-                            {item.type === 'event' && <i className="fas fa-bell"></i>}
-                            <span>{item.value}</span>
-                        </button>
-                    ))}
-                </div>
-            </section>
-
-            {/* --- Recent Searches Section --- */}
-            {recentSearches.length > 0 && (
-                <section className={styles.discoverySection}>
-                    <div className={styles.sectionHeader}>
-                        <h2 className={styles.sectionTitle}>Recent Searches</h2>
-                        <button onClick={clearRecentSearches} className={styles.clearButton}>Clear</button>
+            {/* --- NEW: Enhanced Results Container --- */}
+            <div className={styles.resultsContainer}>
+                {loading ? (
+                    <div className={styles.stateMessage}>
+                        <div className={styles.spinner}></div>
+                        <p>Searching...</p>
                     </div>
-                    <div className={styles.itemGrid}>
-                        {recentSearches.map((item, index) => (
-                            <button key={index} className={styles.itemPill} onClick={() => handleSearch(item)}>
-                                <i className="fas fa-history"></i>
-                                <span>{item}</span>
-                            </button>
-                        ))}
-                    </div>
-                </section>
-            )}
+                ) : hasSearched ? (
+                    results.length > 0 ? (
+                        results.map(result => (
+                            <div key={result.id} className={styles.resultItem} onClick={() => handleResultClick(result.username)}>
+                                <Image src={result.avatar_url || '/user-icon.png'} alt={result.full_name} width={50} height={50} />
+                                <div className={styles.resultInfo}>
+                                    <h4>{result.full_name}</h4>
+                                    <p>{result.username}</p>
+                                </div>
+                                <div className={styles.viewProfile}>
+                                    View Profile <i className="fas fa-arrow-right"></i>
+                                </div>
+                            </div>
+                        ))
+                    ) : (
+                        <div className={styles.stateMessage}>
+                             <p>No results found for "{searchTerm}"</p>
+                        </div>
+                    )
+                ) : (
+                     <section className={styles.discoverySection}>
+                        {recentSearches.length > 0 && (
+                            <>
+                                <div className={styles.sectionHeader}>
+                                    <h3 className={styles.sectionTitle}>Recent Searches</h3>
+                                    <button onClick={() => { setRecentSearches([]); localStorage.removeItem('ulic-recent-searches'); }} className={styles.clearButton}>Clear</button>
+                                </div>
+                                <div className={styles.itemGrid}>
+                                    {recentSearches.map(term => (
+                                        <div key={term} className={styles.itemPill} onClick={() => handleRecentSearchClick(term)}>
+                                            <i className="fas fa-history"></i>
+                                            <span>{term}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </>
+                        )}
+                    </section>
+                )}
+            </div>
         </main>
     );
 }

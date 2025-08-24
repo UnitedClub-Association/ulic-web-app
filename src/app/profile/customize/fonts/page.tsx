@@ -3,58 +3,79 @@ import { useState, useEffect } from 'react';
 import styles from '../customize.module.css';
 import fontStyles from './fonts.module.css';
 import { fonts, FontTarget } from '@/lib/fonts';
+import { useAuth } from '@/context/AuthContext';
+import { createClient } from '@/lib/supabase/client';
+import toast from 'react-hot-toast';
 
 type SelectedFonts = {
-  [key in FontTarget]: string; // e.g., { primary: 'azonix', body: 'arial' }
+  [key in FontTarget]: string;
+};
+
+const defaultFonts: SelectedFonts = {
+  primary: 'azonix',
+  secondary: 'molgan',
+  body: 'xeroda',
+  accent: 'a-astro-space',
 };
 
 export default function FontsPage() {
-  const [selectedFonts, setSelectedFonts] = useState<SelectedFonts>({
-    primary: 'azonix',
-    secondary: 'molgan',
-    body: 'xeroda',
-    accent: 'astro-space',
-  });
+  const { user, fontPrefs, refreshUser } = useAuth();
+  const supabase = createClient();
+
+  const [selectedFonts, setSelectedFonts] = useState<SelectedFonts>(fontPrefs || defaultFonts);
   const [selectedTarget, setSelectedTarget] = useState<FontTarget>('primary');
 
-  // Load saved fonts from localStorage on initial render
+  // Update local state when context changes
   useEffect(() => {
-    const saved = localStorage.getItem('ulic-selected-fonts');
-    if (saved) {
-      const parsedFonts = JSON.parse(saved);
-      setSelectedFonts(parsedFonts);
-      // Apply all saved fonts on load
-      Object.entries(parsedFonts).forEach(([target, fontId]) => {
-        applyFont(target as FontTarget, fontId as string);
-      });
+    if (fontPrefs) {
+      setSelectedFonts(fontPrefs);
     }
-  }, []);
+  }, [fontPrefs]);
 
-  const applyFont = (target: FontTarget, fontId: string) => {
+  // Function to apply font locally for instant preview
+  const applyFontPreview = (target: FontTarget, fontId: string) => {
     const font = fonts[fontId];
     if (font) {
       document.documentElement.style.setProperty(`--font-${target}`, font.family);
     }
   };
-
-  const handleFontSelect = (fontId: string) => {
-    if (!selectedTarget) return; // Do nothing if no target is selected
+  
+  const handleFontSelect = async (fontId: string) => {
+    if (!selectedTarget || !user) {
+        toast.error("You must select a font type and be logged in.");
+        return;
+    };
 
     const newFonts = { ...selectedFonts, [selectedTarget]: fontId };
     setSelectedFonts(newFonts);
-    applyFont(selectedTarget, fontId);
-    
-    // Save to localStorage
-    localStorage.setItem('ulic-selected-fonts', JSON.stringify(newFonts));
+    applyFontPreview(selectedTarget, fontId); // Apply visual change immediately
+
+    const toastId = toast.loading('Saving font preference...');
+
+    // Update the database
+    const { error } = await supabase
+      .from('profiles')
+      .update({ font_preferences: newFonts })
+      .eq('id', user.id);
+      
+    if (error) {
+        toast.error(error.message, { id: toastId });
+        // Revert visual change on error
+        if(fontPrefs) applyFontPreview(selectedTarget, fontPrefs[selectedTarget]);
+    } else {
+        toast.success('Font preference saved!', { id: toastId });
+        // Refresh context to ensure data is consistent
+        await refreshUser();
+    }
   };
 
   return (
     <div>
       <h1 className={styles.pageHeader}>Fonts</h1>
+      <p>Select a font type, then choose a new font from the library to apply it. Your choices are saved automatically.</p>
 
-      {/* Section 1: Target Selection */}
       <div className={fontStyles.fontSection}>
-        <h2 className={fontStyles.sectionTitle}>1. Select a Font Type to Change</h2>
+        <h2 className={fontStyles.sectionTitle}>1. Select Font Type</h2>
         <div className={fontStyles.targetSelectionGrid}>
           {(Object.keys(selectedFonts) as FontTarget[]).map(target => (
             <button 
@@ -74,9 +95,8 @@ export default function FontsPage() {
         </div>
       </div>
 
-      {/* Section 2: Font Library */}
       <div className={fontStyles.fontSection}>
-        <h2 className={fontStyles.sectionTitle}>2. Choose a New Font</h2>
+        <h2 className={fontStyles.sectionTitle}>2. Choose Font</h2>
         <div className={fontStyles.fontLibraryGrid}>
           {Object.entries(fonts).map(([fontId, font]) => (
             <button

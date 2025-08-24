@@ -1,0 +1,137 @@
+.layoutGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.layoutCard {
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.layoutCard:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-glow);
+}
+
+.layoutCard.active {
+    border-color: var(--secondary-glow);
+    box-shadow: 0 0 20px var(--secondary-glow);
+}
+
+.previewImage {
+    width: 100%;
+    height: 170px; 
+    object-fit: cover;
+    display: block;
+    background-color: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.cardContent {
+    padding: 1.5rem;
+}
+
+.cardContent h3 {
+    font-family: var(--font-secondary);
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.cardContent p {
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+/* --- REVAMPED MODAL STYLES --- */
+.modalBackdrop { 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background: rgba(0,0,0,0.7); 
+    backdrop-filter: blur(5px); 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    z-index: 3000; 
+    padding: 1rem;
+}
+
+.modalContent { 
+    background: var(--bg-secondary); 
+    padding: 2rem; 
+    border-radius: 16px; 
+    text-align: center; 
+    width: 100%;
+    max-width: 1200px; /* Allow it to be wider on large screens */
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+.modalContent::-webkit-scrollbar {
+    display: none;
+}
+
+.modalContent h2 {
+    font-family: var(--font-primary);
+    font-size: 2rem;
+    color: var(--primary-glow);
+    flex-shrink: 0;
+}
+
+/* **FIX**: This wrapper is the key to responsive scaling */
+.modalImageWrapper {
+    position: relative;
+    width: 100%;
+    flex-grow: 1; /* Allows the container to fill available space */
+    min-height: 300px; /* Ensure it has a minimum height */
+    margin: 1rem 0;
+}
+
+.modalImage { 
+    border: 1px solid var(--border-color); 
+    border-radius: 8px; 
+}
+
+.modalContent p {
+    color: var(--text-muted);
+    margin: 1.5rem 0;
+    flex-shrink: 0;
+}
+
+.modalActions { 
+    margin-top: auto; /* Push actions to the bottom */
+    padding-top: 1.5rem;
+    display: flex; 
+    gap: 1rem; 
+    justify-content: center; 
+    flex-shrink: 0;
+}
+
+.btnPrimary, .btnSecondary { 
+    padding: 10px 20px; 
+    border-radius: 50px; 
+    border: 2px solid transparent; 
+    cursor: pointer; 
+    font-family: var(--font-primary);
+    font-size: 1rem;
+}
+
+.btnPrimary { 
+    background-color: var(--primary-glow); 
+    color: var(--bg-color); 
+}
+
+.btnSecondary { 
+    border-color: var(--border-color); 
+    color: var(--text-color); 
+}

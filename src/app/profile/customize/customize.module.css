@@ -22,7 +22,15 @@
     flex-direction: column;
     gap: 2rem;
     height: 100%;
+    overflow-y: auto; /* Ensures nav is scrollable */
+    scrollbar-width: none; /* For Firefox */
 }
+
+/* --- NEW: Hide scrollbar for Webkit browsers --- */
+.customizationNav::-webkit-scrollbar {
+    display: none;
+}
+
 
 .navBackButton {
     display: inline-flex;

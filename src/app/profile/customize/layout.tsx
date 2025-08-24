@@ -2,17 +2,22 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import styles from './customize.module.css';
-
-// MOCK USER FOR ADMIN CHECK
-const mockUser = { position: 'President' };
+import { useAuth } from '@/context/AuthContext';
 
 export default function CustomizeLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const isAdmin = ['President', 'Vice President', 'General Secretary'].includes(mockUser.position);
+  const { role } = useAuth();
+  const isAdmin = role === 'admin';
 
   const navLinks = {
-    'Basic Settings': [ { href: '/profile/customize/user-info', label: 'User Info', icon: 'fas fa-user-edit' } ],
-    'Page Structure': [ { href: '/profile/customize/profile', label: 'Profile', icon: 'fas fa-id-card' } ],
+    'Account': [
+        { href: '/profile/customize/user-info', label: 'User Info', icon: 'fas fa-user-edit' },
+        { href: '/profile/saved', label: 'Saved Items', icon: 'fas fa-bookmark' } // <-- NEW LINK
+    ],
+    'Page Structure': [ 
+      { href: '/profile/customize/profile', label: 'Profile Layout', icon: 'fas fa-id-card' },
+      { href: '/profile/customize/navigation', label: 'Navigation', icon: 'fas fa-compass' } 
+    ],
     'Appearance': [
         { href: '/profile/customize/themes', label: 'Themes', icon: 'fas fa-palette' },
         { href: '/profile/customize/fonts', label: 'Fonts', icon: 'fas fa-font' },
@@ -24,11 +29,7 @@ export default function CustomizeLayout({ children }: { children: React.ReactNod
   return (
     <div className={styles.customizationLayout}>
       <nav className={styles.customizationNav}>
-        <Link href="/profile" className={styles.navBackButton}>
-          <i className="fas fa-arrow-left"></i>
-          <span>Back to Profile</span>
-        </Link>
-        
+        <Link href="/profile" className={styles.navBackButton}><i className="fas fa-arrow-left"></i><span>Back to Profile</span></Link>
         {Object.entries(navLinks).map(([category, links]) => (
             <div key={category} className={styles.navCategory}>
                 <h3 className={styles.navCategoryTitle}>{category}</h3>
@@ -43,13 +44,6 @@ export default function CustomizeLayout({ children }: { children: React.ReactNod
                 </ul>
             </div>
         ))}
-        
-        {isAdmin && (
-            <div className={styles.navCategory}>
-                <h3 className={styles.navCategoryTitle}>Admin Settings</h3>
-                {/* Admin-specific links go here */}
-            </div>
-        )}
       </nav>
       <main className={styles.customizationContent}>{children}</main>
     </div>

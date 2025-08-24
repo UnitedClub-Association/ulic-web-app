@@ -7,34 +7,130 @@
 
 .layoutCard {
     background: var(--card-bg);
-    border: 1px solid var(--border-color);
+    border: 2px solid var(--border-color);
     border-radius: 16px;
     overflow: hidden;
     cursor: pointer;
     transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
 }
 .layoutCard:hover {
     transform: translateY(-5px);
     box-shadow: 0 0 15px var(--primary-glow);
     border-color: var(--primary-glow);
 }
+.layoutCard.active {
+    border-color: var(--secondary-glow);
+    box-shadow: 0 0 20px var(--secondary-glow);
+}
 .previewImage {
     width: 100%;
-    height: auto;
+    height: 180px;
+    object-fit: cover;
     display: block;
     background-color: var(--bg-secondary);
 }
 .layoutName {
-    padding: 1rem;
+    padding: 1rem 1.5rem;
     font-family: var(--font-secondary);
     text-align: center;
+    font-size: 1.2rem;
+    margin-top: auto;
+    border-top: 1px solid var(--border-color);
 }
 
-/* Modal Styles */
-.modalBackdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; z-index: 3000; }
-.modalContent { background: var(--bg-secondary); padding: 2rem; border-radius: 16px; text-align: center; }
-.modalImage { border: 1px solid var(--border-color); border-radius: 8px; margin: 1rem 0; }
-.modalActions { margin-top: 1.5rem; display: flex; gap: 1rem; justify-content: center; }
-.btnPrimary, .btnSecondary { padding: 10px 20px; border-radius: 50px; border: 2px solid transparent; cursor: pointer; }
-.btnPrimary { background-color: var(--primary-glow); color: var(--bg-color); }
-.btnSecondary { border-color: var(--border-color); color: var(--text-color); }
+/* --- MODAL STYLES --- */
+.modalBackdrop { 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background: rgba(0,0,0,0.7); 
+    backdrop-filter: blur(5px); 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    z-index: 3000; 
+    padding: 1rem;
+}
+
+.modalContent { 
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    padding: 2rem; 
+    border-radius: 16px; 
+    width: 100%;
+    max-width: 1200px;
+    height: 90vh; /* Use height instead of max-height for more predictable flex behavior */
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+.modalContent h2 {
+    font-family: var(--font-primary);
+    font-size: 2rem;
+    color: var(--primary-glow);
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.modalImageWrapper {
+    position: relative;
+    width: 100%;
+    flex-grow: 1; /* Allow image to fill the available middle space */
+    min-height: 200px; /* Prevent it from collapsing */
+    margin: 1.5rem 0;
+}
+
+.modalImage { 
+    border-radius: 8px; 
+}
+
+/* **FIX**: New footer container to group text and actions */
+.modalFooter {
+    flex-shrink: 0; /* Prevent the footer from shrinking */
+    margin-top: auto; /* Push to the bottom */
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.modalFooter p {
+    color: var(--text-muted);
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.modalActions { 
+    display: flex; 
+    gap: 1rem; 
+    justify-content: flex-end; 
+}
+
+.btnPrimary, .btnSecondary { 
+    padding: 10px 25px; 
+    border-radius: 50px; 
+    border: 2px solid transparent; 
+    cursor: pointer; 
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+.btnPrimary { 
+    background-color: var(--primary-glow); 
+    color: var(--bg-color); 
+}
+.btnPrimary:hover {
+    opacity: 0.8;
+}
+.btnSecondary { 
+    background-color: transparent;
+    border-color: var(--border-color); 
+    color: var(--text-muted); 
+}
+.btnSecondary:hover {
+    border-color: var(--text-color);
+    color: var(--text-color);
+}

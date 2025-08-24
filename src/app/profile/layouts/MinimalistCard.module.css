@@ -1,0 +1,71 @@
+.profileCard {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+    padding: 2.5rem;
+    max-width: 500px;
+    margin: 2rem auto;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+}
+.profileHeader {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+.profilePicture {
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--primary-glow);
+}
+.profileName {
+    font-family: var(--font-primary);
+    font-size: 2rem;
+    margin: 0;
+}
+.profileUsername {
+    color: var(--text-muted);
+}
+.profilePosition {
+    color: var(--secondary-glow);
+    font-family: var(--font-accent);
+    letter-spacing: 1px;
+}
+.profileBody {
+    border-top: 1px solid var(--border-color);
+    padding-top: 2rem;
+}
+.profileBio {
+    line-height: 1.7;
+    margin-bottom: 2rem;
+}
+.badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+.badge {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+}
+.profileFooter {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+    text-align: right;
+}
+.btnPrimary {
+    padding: 10px 25px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-family: var(--font-primary);
+    background-color: var(--primary-glow);
+    color: var(--bg-color);
+    border: none;
+    cursor: pointer;
+}

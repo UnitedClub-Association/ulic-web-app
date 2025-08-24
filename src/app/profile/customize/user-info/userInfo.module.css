@@ -1,0 +1,184 @@
+/* --- Main Form Container --- */
+.formContainer {
+    margin-top: 2.5rem;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 2rem;
+}
+
+/* --- Avatar Upload Section --- */
+.avatarSection {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.avatarPreview {
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--primary-glow);
+}
+
+.avatarActions p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-top: 0.75rem;
+}
+
+/* --- Form Grid Layout --- */
+.formGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+}
+
+.formGroup.fullWidth {
+    grid-column: 1 / -1;
+}
+
+.formGroup label {
+    font-family: var(--font-secondary);
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
+
+.formGroup input,
+.formGroup textarea {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: var(--font-body);
+    transition: all 0.3s ease;
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus {
+    outline: none;
+    border-color: var(--primary-glow);
+    box-shadow: 0 0 10px var(--primary-glow);
+}
+
+.formGroup textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* --- Form Actions & Buttons --- */
+.formActions {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btnPrimary {
+    background-color: var(--primary-glow);
+    color: var(--bg-color);
+    border: none;
+    padding: 12px 25px;
+    border-radius: 50px;
+    font-family: var(--font-primary);
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+}
+
+.btnPrimary:hover {
+    opacity: 0.8;
+    box-shadow: 0 0 15px var(--primary-glow);
+}
+
+.btnPrimary:disabled {
+    background-color: var(--text-muted);
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+/* --- NEW: Secondary Button Style --- */
+.btnSecondary {
+    background-color: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+    padding: 12px 25px;
+    border-radius: 50px;
+    font-family: var(--font-primary);
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.btnSecondary:hover {
+    border-color: var(--text-color);
+    color: var(--text-color);
+}
+
+
+/* --- NEW: Image Cropping Modal Styles --- */
+.cropModalBackdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.cropModalContent {
+    background-color: var(--bg-secondary);
+    padding: 2rem;
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+}
+
+.cropModalContent h2 {
+    font-family: var(--font-primary);
+    margin-bottom: 0.5rem;
+}
+
+.cropModalContent p {
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+}
+
+.cropModalActions {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+    .formGrid {
+        grid-template-columns: 1fr;
+    }
+    .avatarSection {
+        flex-direction: column;
+        text-align: center;
+    }
+}

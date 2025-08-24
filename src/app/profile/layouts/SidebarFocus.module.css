@@ -1,0 +1,86 @@
+.profileGrid {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 2rem;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    overflow: hidden;
+}
+.sidebar {
+    background-color: var(--bg-secondary);
+    padding: 2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.profilePicture {
+    border-radius: 50%;
+    border: 4px solid var(--primary-glow);
+    margin-bottom: 1.5rem;
+}
+.profileName {
+    font-family: var(--font-primary);
+    font-size: 2rem;
+}
+.profileUsername {
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
+.profilePosition {
+    color: var(--secondary-glow);
+    font-family: var(--font-accent);
+    margin-bottom: 2rem;
+}
+.socialStats {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    width: 100%;
+    justify-content: center;
+}
+.socialStats > div {
+    display: flex;
+    flex-direction: column;
+}
+.socialStats strong {
+    font-size: 1.5rem;
+}
+.socialStats span {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+.mainContent {
+    padding: 2rem;
+}
+.sectionTitle {
+    font-family: var(--font-secondary);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+.profileBio {
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+}
+.badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+.badge {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+}
+.customizationLinkWrapper {
+    margin-top: 3rem;
+    text-align: right;
+}
+/* Shared Button Styles */
+.btnPrimary, .btnSecondary { padding: 12px 25px; border-radius: 50px; text-decoration: none; font-family: var(--font-primary); font-size: 1rem; border: 2px solid transparent; transition: all 0.3s ease; cursor: pointer; }
+.btnPrimary { display: inline-flex; align-items: center; gap: 0.75rem; background-color: var(--primary-glow); color: var(--bg-color); }
+.btnSecondary { width: 100%; background-color: transparent; border: 2px solid var(--border-color); color: var(--text-muted); }

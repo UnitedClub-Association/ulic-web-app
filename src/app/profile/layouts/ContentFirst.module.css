@@ -1,0 +1,74 @@
+.profileCard {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 2rem;
+    align-items: flex-start;
+}
+.mainContent, .sidebar {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 2rem;
+}
+.sidebar {
+    text-align: center;
+}
+.profilePicture {
+    border-radius: 50%;
+    margin: 0 auto 1rem;
+}
+.profileName {
+    font-family: var(--font-primary);
+    font-size: 2rem;
+}
+.profileUsername {
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
+.profilePosition {
+    color: var(--secondary-glow);
+    font-family: var(--font-accent);
+    margin-bottom: 1.5rem;
+}
+.socialStats {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 1.5rem;
+    border-top: 1px solid var(--border-color);
+    padding-top: 1.5rem;
+}
+.socialStats strong {
+    font-size: 1.5rem;
+    display: block;
+}
+.sectionTitle {
+    font-family: var(--font-secondary);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+.profileBio {
+    line-height: 1.7;
+    margin-bottom: 2rem;
+}
+.badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+.badge {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+}
+.actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+    padding-top: 1.5rem;
+}
+/* Shared Button Styles */
+.btnPrimary, .btnSecondary { padding: 12px; border-radius: 50px; text-decoration: none; font-family: var(--font-primary); font-size: 1rem; border: 2px solid transparent; transition: all 0.3s ease; cursor: pointer; }
+.btnPrimary { display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; background-color: var(--primary-glow); color: var(--bg-color); }
+.btnSecondary { flex-grow: 1; background-color: transparent; border: 2px solid var(--border-color); color: var(--text-muted); }

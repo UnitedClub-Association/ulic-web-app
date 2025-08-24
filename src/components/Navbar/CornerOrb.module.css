@@ -1,0 +1,178 @@
+/* --- Main Orb Container & Trigger Button --- */
+.orbNavContainer {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    z-index: 50;
+}
+
+.orbTrigger {
+    width: 64px;
+    height: 64px;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    z-index: 51;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+    background: var(--primary-glow);
+    color: var(--bg-color);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 0 15px var(--primary-glow);
+}
+
+.orbTrigger:hover {
+    transform: scale(1.1);
+}
+
+.icon {
+    position: absolute;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    font-size: 1.5rem;
+}
+.isOpen .orbTrigger .iconPlus {
+    transform: rotate(45deg) scale(0.8);
+    opacity: 0;
+}
+.iconClose {
+    transform: rotate(-45deg) scale(0.8);
+    opacity: 0;
+}
+.isOpen .orbTrigger .iconClose {
+    transform: rotate(0) scale(1);
+    opacity: 1;
+}
+
+/* --- Menu & Item Animation --- */
+.orbMenu ul { list-style: none; padding: 0; margin: 0; }
+.orbMenu {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 300px;
+    height: 300px;
+    pointer-events: none;
+}
+
+.orbMenuItemWrapper {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    transform-origin: center;
+    transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.3s ease;
+    opacity: 0;
+    transform: translate(0, 0) scale(0.5);
+    pointer-events: none;
+}
+.isOpen .orbMenuItemWrapper {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(var(--x-translate, 0px), var(--y-translate, 0px)) scale(1);
+    transition-delay: var(--delay, 0s);
+}
+
+.orbMenuItem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 9999px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    text-decoration: none;
+    color: var(--text-muted);
+    transition: all 0.2s ease;
+    position: relative;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.orbMenuItem:hover {
+    border-color: var(--primary-glow);
+    color: var(--primary-glow);
+    transform: translateY(-2px);
+}
+
+/* --- Tooltips --- */
+.orbMenuItem::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    left: 50%;
+    bottom: 120%;
+    transform: translateX(-50%);
+    background-color: var(--bg-secondary);
+    color: var(--text-color);
+    padding: 4px 8px;
+    border-radius: 0.375rem;
+    font-size: 0.8rem;
+    border: 1px solid var(--border-color);
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    transition-delay: 0.1s;
+}
+.orbMenuItem:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* --- Unique Color Overrides --- */
+.orbMenuItem.admin {
+    border-color: var(--secondary-glow);
+    color: var(--secondary-glow);
+}
+.orbMenuItem.login {
+    border-color: #3DDC84;
+    color: #3DDC84;
+}
+.userAvatarButton {
+    border: 2px solid var(--primary-glow) !important;
+    padding: 0;
+}
+.userAvatarButton img {
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* --- NEW: Prototype-Accurate Sub-Menu --- */
+.profileSubmenu {
+    display: none; /* Hidden by default */
+    position: absolute;
+    left: 110%;
+    bottom: 0;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+    padding: 0.5rem;
+    width: 180px;
+    z-index: 10;
+}
+/* Show the sub-menu when hovering the wrapper */
+.profileMenu:hover .profileSubmenu {
+    display: block;
+}
+
+.submenuButton {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 0.375rem;
+    background-color: transparent;
+    border: none;
+    color: var(--text-color);
+    font-size: 1rem;
+    text-align: left;
+    cursor: pointer;
+    font-family: var(--font-secondary);
+}
+.submenuButton:hover {
+    background-color: var(--primary-glow);
+    color: var(--bg-color);
+}
