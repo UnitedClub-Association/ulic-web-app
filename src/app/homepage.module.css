@@ -9,7 +9,7 @@
 .shape1 { width: 30vw; height: 30vw; top: -10vh; left: -15vw; animation-duration: 40s; }
 .shape2 { width: 20vw; height: 20vw; bottom: -5vh; right: -10vw; border-radius: 30%; animation-duration: 30s; animation-direction: reverse; }
 .feedContainer { display: flex; flex-direction: column; gap: 1.5rem; }
-.postCard { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; backdrop-filter: blur(10px); }
+.postCard { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
 .loadingText { text-align: center; padding: 2rem; color: var(--text-muted); }
 
 /* --- REVAMPED Create Post --- */
@@ -88,8 +88,8 @@
 .moreItemsOverlay { position: absolute; inset: 0; background-color: rgba(0,0,0,0.6); color: white; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-family: var(--font-primary); }
 
 /* --- Media Modal --- */
-.mediaModalBackdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; z-index: 2000; }
-.mediaModalBackdrop.fullscreen { background: #000; backdrop-filter: none; }
+.mediaModalBackdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.8);  -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; z-index: 2000; }
+.mediaModalBackdrop.fullscreen { background: #000;  -webkit-backdrop-filter: none; backdrop-filter: none; }
 .modalHeader { position: absolute; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; padding: 1rem; color: white; background: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent); z-index: 2010; transition: opacity 0.3s ease; }
 .fullscreen:hover .modalHeader { opacity: 1; }
 .fullscreen .modalHeader { opacity: 0; }
@@ -103,7 +103,7 @@
 .fullscreen .modalImageContainer { width: 100%; height: 100%; }
 
 /* --- Share & Edit Modals --- */
-.actionModalBackdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; z-index: 2000; padding: 1rem; }
+.actionModalBackdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; z-index: 2000; padding: 1rem; }
 .modalContent { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; width: 100%; max-width: 500px; }
 .modalContent .modalHeader { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; border-bottom: 1px solid var(--border-color); background: none; position: static; }
 .modalContent .modalHeader h2 { font-family: var(--font-primary); font-size: 1.5rem; color: var(--text-color); }

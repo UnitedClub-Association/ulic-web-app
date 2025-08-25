@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   description: "Club management application for UnitedClub-Association",
 };
 
-export default function RootLayout({ children }: { children: React.Node; }) {
+export default function RootLayout({ children }: { children: React.ReactNode; }) {
   return (
     <html lang="en">
       <head>

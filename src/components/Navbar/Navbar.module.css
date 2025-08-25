@@ -5,8 +5,8 @@
     transition: width 0.4s ease-in-out, height 0.4s ease-in-out, transform 0.4s ease-in-out;
     background: var(--card-bg, rgba(22, 22, 30, 0.7));
     border: 1px solid var(--border-color, rgba(72, 73, 89, 0.5));
-    backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);    
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 

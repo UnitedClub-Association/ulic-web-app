@@ -14,7 +14,7 @@
 
 /* --- Event Card Grid --- */
 .cardGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; }
-.card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; backdrop-filter: blur(10px); overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; cursor: pointer; }
+.card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; cursor: pointer; }
 .card:hover { transform: translateY(-8px); box-shadow: 0 0 20px var(--primary-glow); border-color: var(--primary-glow); }
 .cardImage { width: 100%; height: 180px; object-fit: cover; border-bottom: 1px solid var(--border-color); }
 .cardContent { padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1; }
@@ -35,7 +35,7 @@
 .noEventsMessage { grid-column: 1 / -1; text-align: center; color: var(--text-muted); padding: 3rem; background-color: var(--card-bg); border-radius: 16px; font-size: 1.2rem; border: 1px dashed var(--border-color); }
 
 /* --- MODAL STYLES --- */
-.modalBackdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; z-index: 2000; }
+.modalBackdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; z-index: 2000; }
 .modalContent { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 2rem; width: 90%; max-width: 500px; position: relative; }
 .modalCloseBtn { position: absolute; top: 1rem; right: 1rem; background: none; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer; }
 .modalTitle { font-family: var(--font-primary); font-size: 2rem; color: var(--primary-glow); margin-bottom: 1.5rem; }
