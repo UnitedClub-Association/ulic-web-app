@@ -5,7 +5,7 @@ import styles from '../profile.module.css';
 import { createClient } from '@/lib/supabase/client';
 import toast from 'react-hot-toast';
 import { useAuth } from '@/context/AuthContext'; // Import useAuth to identify the current user
-import { type PageProps } from "next/app";
+
 // Import all layout components
 import Classic from '../layouts/Classic';
 import ModernBanner from '../layouts/ModernBanner';
@@ -31,7 +31,7 @@ type Badge = {
 };
 
 
-export default function UserProfilePage({ params }: PageProps<{ username: string }>) {
+export default function UserProfilePage({ params }: { params: { username: string } }) {
   const { user: currentUser } = useAuth(); // Get the currently logged-in user
   const decodedUsername = decodeURIComponent(params.username);
   const supabase = createClient();
