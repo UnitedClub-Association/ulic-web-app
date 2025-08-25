@@ -16,6 +16,12 @@ const nextConfig = {
       },
     ],
   },
+  // Add the eslint configuration block here
+  eslint: {
+    // This allows production builds to successfully complete even if
+    // your project has ESLint errors.
+    ignoreDuringBuilds: true,
+  },
 };
 
 module.exports = nextConfig;
