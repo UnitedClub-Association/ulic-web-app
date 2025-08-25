@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import styles from '../profile.module.css';
 import { createClient } from '@/lib/supabase/client';
 import toast from 'react-hot-toast';
@@ -13,9 +13,16 @@ import SidebarFocus from '../layouts/SidebarFocus';
 import DynamicGrid from '../layouts/DynamicGrid';
 import ContentFirst from '../layouts/ContentFirst';
 
+// Define the precise type for the page's props
+type UserProfilePageProps = {
+  params: {
+    username: string;
+  };
+};
+
 // Define types for the data structures
 type Profile = {
-  id: string; 
+  id: string;
   full_name: string;
   username: string;
   position: string;
@@ -30,12 +37,6 @@ type Badge = {
     description: string;
 };
 
-// Define the type for the page's props directly
-type UserProfilePageProps = {
-  params: {
-    username: string;
-  };
-};
 
 export default function UserProfilePage({ params }: UserProfilePageProps) {
   const { user: currentUser } = useAuth();
