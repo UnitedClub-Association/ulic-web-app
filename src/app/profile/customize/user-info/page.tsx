@@ -262,14 +262,12 @@ export default function UserInfoPage() {
                 <h2>Crop Your Image</h2>
                 <p>The image will be cropped to a 400x400 square.</p>
                 <ReactCrop
-                    crop={crop}
-                    onChange={(_, percentCrop) => setCrop(percentCrop)}
-                    onComplete={(c) => setCompletedCrop(c)}
-                    aspect={1}
-                    width={400}
-                    height={400}
-                    locked={true} 
-                >
+    crop={crop}
+    onChange={(_, percentCrop) => setCrop(percentCrop)}
+    onComplete={(c) => setCompletedCrop(c)}
+    aspect={1}
+    locked={true} 
+>
                     <img
                         ref={imgRef}
                         alt="Crop me"
