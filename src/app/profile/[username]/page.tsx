@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use } from 'react'; // Import 'use' from React
 import styles from '../profile.module.css';
 import { createClient } from '@/lib/supabase/client';
 import toast from 'react-hot-toast';
@@ -13,11 +13,11 @@ import SidebarFocus from '../layouts/SidebarFocus';
 import DynamicGrid from '../layouts/DynamicGrid';
 import ContentFirst from '../layouts/ContentFirst';
 
-// Define the precise type for the page's props directly
+// Define the precise type for the page's props, with params as a Promise
 type UserProfilePageProps = {
-  params: {
+  params: Promise<{
     username: string;
-  };
+  }>;
 };
 
 // Define types for the data structures
@@ -37,11 +37,15 @@ type Badge = {
     description: string;
 };
 
+// The component must be a Client Component to use hooks like useState and useEffect
 export default function UserProfilePage({ params }: UserProfilePageProps) {
-  const { user: currentUser } = useAuth();
-  const decodedUsername = decodeURIComponent(params.username);
-  const supabase = createClient();
+  // Use the 'use' hook to resolve the promise on the client
+  const resolvedParams = use(params);
+  const decodedUsername = decodeURIComponent(resolvedParams.username);
 
+  const { user: currentUser } = useAuth();
+  const supabase = createClient();
+  
   const [profile, setProfile] = useState<Profile | null>(null);
   const [stats, setStats] = useState({ followers: 0, following: 0, likes: '0' });
   const [badges, setBadges] = useState<Badge[]>([]);
@@ -60,7 +64,7 @@ export default function UserProfilePage({ params }: UserProfilePageProps) {
         setLoading(false);
         return;
       }
-
+      
       setProfile(data);
       setIsOwnProfile(currentUser?.id === data.id);
 
@@ -74,12 +78,12 @@ export default function UserProfilePage({ params }: UserProfilePageProps) {
       setBadges(badgesRes.data?.map(b => b.badges) as Badge[] || []);
       setLoading(false);
     };
-
+    
     if(currentUser !== undefined) {
         fetchProfileData();
     }
   }, [decodedUsername, supabase, currentUser]);
-
+  
   const renderLayout = () => {
     if (!profile) return <p>This user's profile could not be loaded.</p>;
 
@@ -92,7 +96,7 @@ export default function UserProfilePage({ params }: UserProfilePageProps) {
       avatar_url: profile.avatar_url,
       badges: badges.map(b => b.name),
     };
-
+    
     const layoutProps = { userProfile: userProfileForLayout, isOwnProfile };
 
     switch(profile.profile_layout) {
