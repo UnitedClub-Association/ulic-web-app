@@ -13,7 +13,7 @@ import SidebarFocus from '../layouts/SidebarFocus';
 import DynamicGrid from '../layouts/DynamicGrid';
 import ContentFirst from '../layouts/ContentFirst';
 
-// Define the precise type for the page's props
+// Define the precise type for the page's props directly
 type UserProfilePageProps = {
   params: {
     username: string;
@@ -37,12 +37,11 @@ type Badge = {
     description: string;
 };
 
-
 export default function UserProfilePage({ params }: UserProfilePageProps) {
   const { user: currentUser } = useAuth();
   const decodedUsername = decodeURIComponent(params.username);
   const supabase = createClient();
-  
+
   const [profile, setProfile] = useState<Profile | null>(null);
   const [stats, setStats] = useState({ followers: 0, following: 0, likes: '0' });
   const [badges, setBadges] = useState<Badge[]>([]);
@@ -61,7 +60,7 @@ export default function UserProfilePage({ params }: UserProfilePageProps) {
         setLoading(false);
         return;
       }
-      
+
       setProfile(data);
       setIsOwnProfile(currentUser?.id === data.id);
 
@@ -75,12 +74,12 @@ export default function UserProfilePage({ params }: UserProfilePageProps) {
       setBadges(badgesRes.data?.map(b => b.badges) as Badge[] || []);
       setLoading(false);
     };
-    
+
     if(currentUser !== undefined) {
         fetchProfileData();
     }
   }, [decodedUsername, supabase, currentUser]);
-  
+
   const renderLayout = () => {
     if (!profile) return <p>This user's profile could not be loaded.</p>;
 
@@ -93,7 +92,7 @@ export default function UserProfilePage({ params }: UserProfilePageProps) {
       avatar_url: profile.avatar_url,
       badges: badges.map(b => b.name),
     };
-    
+
     const layoutProps = { userProfile: userProfileForLayout, isOwnProfile };
 
     switch(profile.profile_layout) {
