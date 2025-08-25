@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import "@/lib/fontImports.css";
+import "@/lib/fontImports.css"; // Ensure this line is correct
 import Navbar from "@/components/Navbar/Navbar";
 import { AuthProvider } from "@/context/AuthContext";
 import { Toaster } from 'react-hot-toast';
-import ThemeApplier from "@/components/Theme/ThemeApplier"; // Import the new component
+import ThemeApplier from "@/components/Theme/ThemeApplier";
 import FloatingActionButton from "@/components/FloatingActionButton/FloatingActionButton";
 
 export const metadata: Metadata = {
@@ -20,12 +20,12 @@ export default function RootLayout({ children }: { children: React.ReactNode; })
       </head>
       <body>
         <AuthProvider>
-          <ThemeApplier /> {/* Add the ThemeApplier here */}
+          <ThemeApplier />
           <Toaster 
             position="bottom-right"
             toastOptions={{
               style: {
-                background: 'var(--card-bg)', // Use theme variables
+                background: 'var(--card-bg)',
                 color: 'var(--text-color)',
                 border: '1px solid var(--border-color)'
               },
@@ -33,7 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode; })
           />
           <Navbar />
           <main>{children}</main>
-          <FloatingActionButton /> {/* Add the FAB here */}
+          <FloatingActionButton />
         </AuthProvider>
       </body>
     </html>
