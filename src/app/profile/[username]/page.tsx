@@ -75,7 +75,8 @@ export default function UserProfilePage({ params }: UserProfilePageProps) {
       ]);
 
       setStats({ followers: followersRes.count ?? 0, following: followingRes.count ?? 0, likes: '0' });
-      setBadges(badgesRes.data?.map(b => b.badges) as Badge[] || []);
+      const userBadges = badgesRes.data?.map(b => b.badges).flat().filter(Boolean) as Badge[] || [];
+setBadges(userBadges);
       setLoading(false);
     };
     
