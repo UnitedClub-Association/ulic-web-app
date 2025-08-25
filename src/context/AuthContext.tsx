@@ -13,9 +13,10 @@ type AuthContextType = {
   user: User | null;
   fullName: string | null;
   username: string | null; 
+  avatarUrl: string | null; // <-- NEW: Add avatar URL
   role: string | null;
   theme: string | null;
-  fontPrefs: FontPreferences | null; // <-- NEW: Add font preferences
+  fontPrefs: FontPreferences | null;
   loading: boolean;
   refreshUser: () => Promise<void>;
 };
@@ -34,6 +35,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [fullName, setFullName] = useState<string | null>(null);
   const [username, setUsername] = useState<string | null>(null);
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null); // <-- NEW
   const [role, setRole] = useState<string | null>(null);
   const [theme, setTheme] = useState<string | null>('tokyo-night');
   const [fontPrefs, setFontPrefs] = useState<FontPreferences | null>(defaultFonts);
@@ -44,6 +46,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setUser(null);
       setFullName(null);
       setUsername(null);
+      setAvatarUrl(null); // <-- NEW
       setRole(null);
       setTheme('tokyo-night');
       setFontPrefs(defaultFonts);
@@ -51,10 +54,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       return;
     }
     
-    // **FIX**: Now fetches font_preferences as well
     const { data: profile, error } = await supabase
       .from('profiles')
-      .select('full_name, username, role, theme, font_preferences')
+      .select('full_name, username, avatar_url, role, theme, font_preferences') // <-- Fetch avatar_url
       .eq('id', authUser.id)
       .single();
 
@@ -65,6 +67,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setUser(authUser);
     setFullName(profile?.full_name || null);
     setUsername(profile?.username || null);
+    setAvatarUrl(profile?.avatar_url || null); // <-- NEW
     setRole(profile?.role || 'member');
     setTheme(profile?.theme || 'tokyo-night');
     setFontPrefs(profile?.font_preferences || defaultFonts);
@@ -90,7 +93,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     };
   }, []); // Run only once on mount
 
-  const value = { user, fullName, username, role, theme, fontPrefs, loading, refreshUser };
+  const value = { user, fullName, username, avatarUrl, role, theme, fontPrefs, loading, refreshUser };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

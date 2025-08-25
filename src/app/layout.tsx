@@ -5,13 +5,14 @@ import Navbar from "@/components/Navbar/Navbar";
 import { AuthProvider } from "@/context/AuthContext";
 import { Toaster } from 'react-hot-toast';
 import ThemeApplier from "@/components/Theme/ThemeApplier"; // Import the new component
+import FloatingActionButton from "@/components/FloatingActionButton/FloatingActionButton";
 
 export const metadata: Metadata = {
   title: "ULIC App",
   description: "Club management application for UnitedClub-Association",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode; }) {
+export default function RootLayout({ children }: { children: React.Node; }) {
   return (
     <html lang="en">
       <head>
@@ -32,6 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode; })
           />
           <Navbar />
           <main>{children}</main>
+          <FloatingActionButton /> {/* Add the FAB here */}
         </AuthProvider>
       </body>
     </html>

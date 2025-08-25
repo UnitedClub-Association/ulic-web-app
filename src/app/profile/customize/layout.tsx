@@ -12,7 +12,8 @@ export default function CustomizeLayout({ children }: { children: React.ReactNod
   const navLinks = {
     'Account': [
         { href: '/profile/customize/user-info', label: 'User Info', icon: 'fas fa-user-edit' },
-        { href: '/profile/saved', label: 'Saved Items', icon: 'fas fa-bookmark' } // <-- NEW LINK
+        { href: '/profile/saved', label: 'Saved Items', icon: 'fas fa-bookmark' },
+        { href: '/profile/notifications', label: 'Notifications', icon: 'fas fa-bell' } // <-- NEW LINK
     ],
     'Page Structure': [ 
       { href: '/profile/customize/profile', label: 'Profile Layout', icon: 'fas fa-id-card' },

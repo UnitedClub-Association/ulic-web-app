@@ -7,7 +7,7 @@ const getImageKitAuth = async () => {
     return response.json();
 };
 
-export const uploadToImageKit = async (file: Blob, fileName: string) => {
+export const uploadToImageKit = async (file: Blob, fileName: string, folder: string = '/') => {
     const authData = await getImageKitAuth();
     const formData = new FormData();
 
@@ -15,10 +15,9 @@ export const uploadToImageKit = async (file: Blob, fileName: string) => {
     formData.append('fileName', fileName);
     formData.append('publicKey', process.env.NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY!);
     formData.append('signature', authData.signature);
-    formData.append('expire', authData.expire);
+    formData.append('expire', String(authData.expire));
     formData.append('token', authData.token);
-    formData.append('folder', '/profilepic/'); // Specify the folder
-    formData.append('folder', folder);
+    formData.append('folder', folder); // Specify the folder
 
     const response = await fetch('https://upload.imagekit.io/api/v1/files/upload', {
         method: 'POST',

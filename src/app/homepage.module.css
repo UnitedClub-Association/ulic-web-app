@@ -12,48 +12,111 @@
 .postCard { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; backdrop-filter: blur(10px); }
 .loadingText { text-align: center; padding: 2rem; color: var(--text-muted); }
 
-/* --- Create Post --- */
-.createPostContainer { display: flex; flex-direction: column; gap: 1rem; padding: 1.5rem; }
-.createPostContainer textarea { width: 100%; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.75rem; color: var(--text-color); font-family: var(--font-body); resize: none; }
+/* --- REVAMPED Create Post --- */
+.createPostContainer { display: flex; gap: 1rem; padding: 1.5rem; align-items: flex-start; }
+.createPostContainer img { border-radius: 50%; }
+.postInputArea { display: flex; flex-direction: column; width: 100%; gap: 1rem; }
+.postInputArea textarea { width: 100%; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.75rem; color: var(--text-color); font-family: var(--font-body); resize: none; transition: all 0.3s ease; }
+.postInputArea textarea:focus { outline: none; border-color: var(--primary-glow); box-shadow: 0 0 10px var(--primary-glow); }
+
+.mediaPreviewContainer { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.mediaPreviewItem { position: relative; width: 80px; height: 80px; }
+.mediaPreviewItem img { border-radius: 8px; object-fit: cover; border: 1px solid var(--border-color); width: 100%; height: 100%; }
+.removeMediaBtn { position: absolute; top: -5px; right: -5px; background: rgba(0,0,0,0.7); color: white; border: none; border-radius: 50%; width: 20px; height: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; }
+
 .createPostActions { display: flex; justify-content: space-between; align-items: center; }
-.mediaUploadButton { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.5rem; padding: 0.5rem; }
-.createPostActions button { background-color: var(--primary-glow); color: var(--bg-color); border: none; border-radius: 20px; padding: 8px 16px; font-family: var(--font-primary); cursor: pointer; }
+.createPostActions button:not(.addMediaButton) { background-color: var(--primary-glow); color: var(--bg-color); border: none; border-radius: 20px; padding: 8px 16px; font-family: var(--font-secondary); cursor: pointer; }
 .createPostActions button:disabled { background-color: var(--text-muted); }
+
+.uploadWrapper { position: relative; }
+.addMediaButton { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.5rem; padding: 0.5rem; border-radius: 50%; transition: all 0.2s ease; }
+.addMediaButton:hover { background-color: var(--bg-secondary); color: var(--primary-glow); }
+.uploadOptionsMenu { position: absolute; bottom: 120%; left: 0; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.5rem; z-index: 10; display: flex; flex-direction: column; gap: 0.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+.uploadOptionsMenu button { display: flex; align-items: center; gap: 0.5rem; background: none; border: none; color: var(--text-color); padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer; width: 100%; text-align: left; }
+.uploadOptionsMenu button:hover { background-color: var(--primary-glow); color: var(--bg-color); }
 
 /* --- Post Display --- */
 .postHeader { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.5rem; }
 .postHeader img { border-radius: 50%; object-fit: cover; }
+.postAuthorInfo { flex-grow: 1; } /* Allow author info to take up space */
 .postAuthorInfo a { font-family: var(--font-secondary); font-size: 1.1rem; color: var(--text-color); text-decoration: none; }
 .postAuthorInfo a:hover { text-decoration: underline; }
 .postAuthorInfo span { display: block; font-size: 0.8rem; color: var(--text-muted); }
-.postMenu { margin-left: auto; display: flex; gap: 0.5rem; }
-.postMenu button { background: var(--bg-secondary); border: 1px solid var(--border-color); color: var(--text-muted); cursor: pointer; width: 32px; height: 32px; border-radius: 50%; }
-.postMenu button:hover { color: var(--primary-glow); border-color: var(--primary-glow); }
+
+/* FIX #3: Styles for the new three-dots menu */
+.postMenu { position: relative; }
+.postMenuButton { background: var(--bg-secondary); border: 1px solid var(--border-color); color: var(--text-muted); cursor: pointer; width: 32px; height: 32px; border-radius: 50%; }
+.postMenuButton:hover { color: var(--primary-glow); border-color: var(--primary-glow); }
+.postMenuContent {
+    position: absolute; top: 110%; right: 0; background: var(--bg-secondary); border: 1px solid var(--border-color);
+    border-radius: 8px; padding: 0.5rem; z-index: 10; width: 180px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    display: flex; flex-direction: column; gap: 0.25rem;
+}
+.postMenuContent button {
+    display: flex; align-items: center; gap: 0.75rem; background: none; border: none; color: var(--text-color);
+    padding: 0.75rem; border-radius: 5px; cursor: pointer; width: 100%; text-align: left; font-family: var(--font-body);
+}
+.postMenuContent button:hover { background-color: var(--primary-glow); color: var(--bg-color); }
+.postMenuContent button i { width: 16px; text-align: center; }
+.deleteOption { color: #ff5555; }
+.deleteOption:hover { background-color: #ff5555 !important; color: white !important; }
 
 .postContent { padding: 0 1.5rem 1.5rem; }
-.postContent p { font-size: 1rem; line-height: 1.7; white-space: pre-wrap; }
-.postMedia { width: 100%; height: auto; border-radius: 8px; margin-top: 1rem; border: 1px solid var(--border-color); }
+.postContent div { font-size: 1rem; line-height: 1.7; white-space: pre-wrap; word-break: break-word; }
+.postContent a { color: var(--primary-glow); text-decoration: underline; font-weight: bold; }
+.postContent a:hover { color: var(--secondary-glow); }
+:global(.mention-link) { font-weight: bold; color: var(--secondary-glow) !important; }
+.seeMoreBtn { background: none; border: none; color: var(--text-muted); font-weight: bold; cursor: pointer; padding: 0.25rem 0; margin-top: 0.5rem; display: inline-block; }
+.seeMoreBtn:hover { color: var(--primary-glow); }
 
 .postActions { display: flex; justify-content: space-around; padding: 0.5rem 1.5rem; border-top: 1px solid var(--border-color); }
-.postActions button { background: none; border: none; color: var(--text-muted); font-family: var(--font-secondary); font-size: 1rem; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem; border-radius: 5px; transition: color 0.3s ease, background-color 0.3s ease; flex-grow: 1; justify-content: center; }
+.postActions button { background: none; border: none; color: var(--text-muted); font-family: var(--font-body); font-size: 1rem; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem; border-radius: 5px; transition: color 0.3s ease, background-color 0.3s ease; flex-grow: 1; justify-content: center; }
 .postActions button:hover { background-color: var(--bg-secondary); color: var(--primary-glow); }
+.postActions button.liked { color: var(--secondary-glow); font-weight: bold; }
 
-/* --- Modals (Share & Edit) --- */
-.modalBackdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; z-index: 2000; padding: 1rem; }
+/* --- Media Grid --- */
+.mediaGrid { margin-top: 1rem; display: grid; gap: 4px; border-radius: 12px; overflow: hidden; }
+.mediaGridItem { position: relative; width: 100%; background-color: var(--bg-secondary); cursor: pointer; }
+.mediaGridItem img { transition: transform 0.3s ease; }
+.mediaGridItem:hover img { transform: scale(1.05); }
+.grid-1 { grid-template-columns: 1fr; } .grid-1 .mediaGridItem { aspect-ratio: 16 / 9; }
+.grid-2 { grid-template-columns: 1fr 1fr; } .grid-2 .mediaGridItem { aspect-ratio: 1 / 1; }
+.grid-3 { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
+.grid-3 .mediaGridItem:first-child { grid-row: 1 / 3; aspect-ratio: 1 / 2; }
+.grid-3 .mediaGridItem:nth-child(2), .grid-3 .mediaGridItem:nth-child(3) { aspect-ratio: 1 / 1; }
+.grid-4 { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; } .grid-4 .mediaGridItem { aspect-ratio: 1 / 1; }
+.moreItemsOverlay { position: absolute; inset: 0; background-color: rgba(0,0,0,0.6); color: white; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-family: var(--font-primary); }
+
+/* --- Media Modal --- */
+.mediaModalBackdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; z-index: 2000; }
+.mediaModalBackdrop.fullscreen { background: #000; backdrop-filter: none; }
+.modalHeader { position: absolute; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; padding: 1rem; color: white; background: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent); z-index: 2010; transition: opacity 0.3s ease; }
+.fullscreen:hover .modalHeader { opacity: 1; }
+.fullscreen .modalHeader { opacity: 0; }
+
+.modalHeader span { font-family: var(--font-secondary); }
+.modalActions { display: flex; gap: 1rem; }
+.modalActions button, .modalNav { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; text-shadow: 0 1px 3px black; padding: 0.5rem; }
+.modalNav { position: absolute; top: 50%; transform: translateY(-50%); z-index: 2010; }
+.prev { left: 1rem; } .next { right: 1rem; }
+.modalImageContainer { width: 90%; height: 80%; position: relative; }
+.fullscreen .modalImageContainer { width: 100%; height: 100%; }
+
+/* --- Share & Edit Modals --- */
+.actionModalBackdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; z-index: 2000; padding: 1rem; }
 .modalContent { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; width: 100%; max-width: 500px; }
-.modalHeader { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; border-bottom: 1px solid var(--border-color); }
-.modalHeader h2 { font-family: var(--font-primary); font-size: 1.5rem; }
+.modalContent .modalHeader { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; border-bottom: 1px solid var(--border-color); background: none; position: static; }
+.modalContent .modalHeader h2 { font-family: var(--font-primary); font-size: 1.5rem; color: var(--text-color); }
 .modalCloseBtn { background: none; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer; }
-.shareGrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; padding: 1.5rem; }
-.shareOption { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; padding: 1rem; border-radius: 8px; background: var(--bg-color); color: var(--text-color); text-decoration: none; }
-.shareOption:hover { background: var(--card-bg); }
-.shareOption i { font-size: 1.8rem; }
-.shareOption span { font-family: var(--font-secondary); }
-.copyLinkContainer { display: flex; padding: 1.5rem; border-top: 1px solid var(--border-color); }
-.copyLinkContainer input { flex-grow: 1; background: var(--bg-color); border: 1px solid var(--border-color); border-radius: 8px 0 0 8px; padding: 0.75rem; color: var(--text-muted); }
-.copyLinkContainer button { background: var(--primary-glow); color: var(--bg-color); border: none; border-radius: 0 8px 8px 0; padding: 0 1rem; font-family: var(--font-primary); cursor: pointer; }
 
-/* Edit Post Modal Styles */
+.shareGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 0.5rem; padding: 1.5rem; }
+.shareOption { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.75rem; padding: 1rem; border-radius: 8px; background: var(--bg-color); color: var(--text-color); text-decoration: none; }
+.shareOption:hover { background: var(--card-bg); }
+.shareOption i { font-size: 2rem; }
+.shareOption span { font-family: var(--font-secondary); font-size: 0.9rem; }
+
 .editPostContainer { padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
 .editPostContainer textarea { width: 100%; background: var(--bg-color); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.75rem; color: var(--text-color); font-family: var(--font-body); resize: vertical; }
-.editPostContainer img { max-width: 100px; border-radius: 8px; }
+.editActions { display: flex; justify-content: flex-end; }
+.btnPrimary { background-color: var(--primary-glow); color: var(--bg-color); border: none; padding: 12px 25px; border-radius: 50px; font-family: var(--font-secondary); font-size: 1.1rem; cursor: pointer; }
+.btnPrimary:disabled { background-color: var(--text-muted); cursor: not-allowed; }
