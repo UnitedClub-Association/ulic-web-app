@@ -65,7 +65,7 @@
 .postContent div { font-size: 1rem; line-height: 1.7; white-space: pre-wrap; word-break: break-word; }
 .postContent a { color: var(--primary-glow); text-decoration: underline; font-weight: bold; }
 .postContent a:hover { color: var(--secondary-glow); }
-:global(.mention-link) { font-weight: bold; color: var(--secondary-glow) !important; }
+.postContent :global(.mention-link) { font-weight: bold; color: var(--secondary-glow) !important; }
 .seeMoreBtn { background: none; border: none; color: var(--text-muted); font-weight: bold; cursor: pointer; padding: 0.25rem 0; margin-top: 0.5rem; display: inline-block; }
 .seeMoreBtn:hover { color: var(--primary-glow); }
 
