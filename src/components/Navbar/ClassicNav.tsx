@@ -82,9 +82,81 @@ export default function ClassicNav({ serverSession }: { serverSession: Session |
     if (isCustomizePage) return null;
     const containerClasses = `${styles.navContainer} ${styles[position]} ${isMinimized && isVertical ? styles.minimized : ''}`;
 
-    const optionsMenu = ( /* ... unchanged ... */ );
-    const verticalUserSection = ( /* ... unchanged ... */ );
-    const horizontalUserSection = ( /* ... unchanged ... */ );
+    // Reusable Options Menu
+    const optionsMenu = (
+        <div className={styles.navOptionsContainer} ref={optionsMenuRef}>
+            <button onClick={() => setShowOptionsMenu(!showOptionsMenu)} className={styles.navIconBtn} aria-label="Options menu">
+                <i className={isVertical ? "fas fa-ellipsis-h" : "fas fa-ellipsis-v"}></i>
+                <span className={styles.tooltip}>Options</span>
+            </button>
+            {showOptionsMenu && (
+                <div className={`${styles.navOptionsMenu} ${styles.show}`}>
+                    {['left', 'right', 'top', 'bottom'].map(pos => (
+                        <button key={pos} onClick={() => setPosition(pos)} className={position === pos ? styles.active : ''}>
+                            <i className={`fas fa-arrow-${pos === 'left' || pos === 'right' ? pos : (pos === 'top' ? 'up' : 'down')} fa-fw`}></i> Position {pos.charAt(0).toUpperCase() + pos.slice(1)}
+                        </button>
+                    ))}
+                </div>
+            )}
+        </div>
+    );
+    
+    // User Section for Vertical Layout
+    const verticalUserSection = (
+        <div className={styles.footerUserSection}>
+            {currentUser ? (
+                <div className={styles.navOptionsContainer} ref={userMenuRef}>
+                    <button onClick={() => setShowUserMenu(!showUserMenu)} className={styles.userProfileButton}>
+                        <Image 
+                            src={currentUser.user_metadata.avatar_url || '/user-icon.png'} 
+                            alt="User Avatar" 
+                            width={40} 
+                            height={40} 
+                        />
+                        <span>{currentUser.user_metadata.full_name || currentUser.email}</span>
+                        <span className={styles.tooltip}>{currentUser.user_metadata.full_name || currentUser.email}</span>
+                    </button>
+                    {showUserMenu && (
+                        <div className={`${styles.navOptionsMenu} ${styles.show}`}>
+                            <Link href="/profile" className={styles.menuButton}><i className="fas fa-user-circle fa-fw"></i> View Profile</Link>
+                            <button onClick={handleLogout} className={styles.menuButton}><i className="fas fa-sign-out-alt fa-fw"></i> Logout</button>
+                        </div>
+                    )}
+                </div>
+            ) : (
+                <Link href="/auth" className={`${styles.navLinkVertical} ${styles.loginButton}`}>
+                    <i className="fas fa-sign-in-alt"></i><span>Login / Sign Up</span><span className={styles.tooltip}>Login / Sign Up</span>
+                </Link>
+            )}
+        </div>
+    );
+
+    // User Section for Horizontal Layout
+    const horizontalUserSection = (
+        <>
+            {currentUser ? (
+                <div className={styles.navOptionsContainer} ref={userMenuRef}>
+                    <button onClick={() => setShowUserMenu(!showUserMenu)} className={styles.userAvatarButton}>
+                        <Image 
+                            src={currentUser.user_metadata.avatar_url || '/user-icon.png'} 
+                            alt="User Avatar" 
+                            width={38} 
+                            height={38} 
+                        />
+                        <span className={styles.tooltip}>{currentUser.user_metadata.full_name || currentUser.email}</span>
+                    </button>
+                    {showUserMenu && (
+                        <div className={`${styles.navOptionsMenu} ${styles.show}`}>
+                            <Link href="/profile" className={styles.menuButton}><i className="fas fa-user-circle fa-fw"></i> View Profile</Link>
+                            <button onClick={handleLogout} className={styles.menuButton}><i className="fas fa-sign-out-alt fa-fw"></i> Logout</button>
+                        </div>
+                    )}
+                </div>
+            ) : (
+                <Link href="/auth" className={styles.horizontalLoginButton}>Login / Sign Up</Link>
+            )}
+        </>
+    );
 
     return (
         <div className={containerClasses}>
