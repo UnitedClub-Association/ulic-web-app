@@ -1,23 +1,43 @@
 import { NextResponse } from 'next/server';
-import ImageKit from 'imagekit';
+import crypto from 'crypto';
+import { v4 as uuidv4 } from 'uuid';
 
 export const dynamic = 'force-dynamic';
 
-// Initialize ImageKit with your credentials from environment variables
-const imagekit = new ImageKit({
-    publicKey: process.env.NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY!,
-    privateKey: process.env.IMAGEKIT_PRIVATE_KEY!,
-    urlEndpoint: process.env.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT!
-});
-
 export async function GET(request: Request) {
-    try {
-        const authenticationParameters = imagekit.getAuthenticationParameters();
-        return NextResponse.json(authenticationParameters);
-    } catch (error) {
-        console.error("ImageKit Auth Error:", error);
+    // This route no longer needs the 'imagekit' package.
+    const privateKey = process.env.IMAGEKIT_PRIVATE_KEY;
+
+    if (!privateKey) {
+        console.error("ImageKit private key is not configured.");
         return NextResponse.json(
-            { message: "Failed to get ImageKit authentication parameters." },
+            { message: "Server configuration error." },
+            { status: 500 }
+        );
+    }
+
+    try {
+        const token = uuidv4();
+        // The token will be valid for 1 hour (3600 seconds)
+        const expire = Math.floor(Date.now() / 1000) + 3600; 
+
+        const signature = crypto
+            .createHmac('sha1', privateKey)
+            .update(token + expire)
+            .digest('hex');
+
+        const authenticationParameters = {
+            token,
+            expire,
+            signature
+        };
+        
+        return NextResponse.json(authenticationParameters);
+
+    } catch (error) {
+        console.error("ImageKit Auth Manual Generation Error:", error);
+        return NextResponse.json(
+            { message: "Failed to generate ImageKit authentication parameters." },
             { status: 500 }
         );
     }
