@@ -8,6 +8,12 @@ import styles from './FloatingDock.module.css';
 import { useAuth } from '@/context/AuthContext';
 import { createClient } from '@/lib/supabase/client';
 
+// Define a type for navigation links
+type NavLink = {
+    href: string;
+    icon: string;
+};
+
 export default function FloatingDock({ serverSession }: { serverSession: Session | null }) {
     const pathname = usePathname();
     const router = useRouter();
@@ -17,25 +23,21 @@ export default function FloatingDock({ serverSession }: { serverSession: Session
     const [showUserMenu, setShowUserMenu] = useState(false);
     const userMenuRef = useRef<HTMLDivElement>(null);
 
-    // Prioritize client-side user data for the most up-to-date info
     const currentUser = user || serverSession?.user;
     const currentRole = role || serverSession?.user?.user_metadata?.role;
     const isAdmin = currentRole === 'admin';
 
-    // --- DYNAMIC NAVIGATION LINKS ---
-    const baseNavLinks = [
+    const baseNavLinks: NavLink[] = [
         { href: '/', icon: 'fas fa-home' },
         { href: '/search', icon: 'fas fa-search' },
         { href: '/calendar', icon: 'fas fa-calendar-alt' },
         { href: '/events', icon: 'fas fa-bell' },
         { href: '/projects', icon: 'fas fa-project-diagram' },
     ];
-    // Conditionally add the admin link
     if (isAdmin) {
         baseNavLinks.push({ href: '/admin/settings', icon: 'fas fa-cogs' });
     }
     
-    // Close user menu on outside click
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
             if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
@@ -51,7 +53,6 @@ export default function FloatingDock({ serverSession }: { serverSession: Session
         router.push('/');
     };
     
-    // Hide on customize page
     if (pathname.startsWith('/profile/customize')) return null;
 
     return (
@@ -61,19 +62,11 @@ export default function FloatingDock({ serverSession }: { serverSession: Session
                     <i className={link.icon}></i>
                 </Link>
             ))}
-
-            {/* --- SEPARATOR & USER MENU --- */}
             <div className={styles.separator}></div>
-
             {currentUser ? (
                 <div className={styles.userMenuContainer} ref={userMenuRef}>
                     <button onClick={() => setShowUserMenu(!showUserMenu)} className={styles.userAvatarButton}>
-                        <Image 
-                            src={currentUser.user_metadata.avatar_url || '/user-icon.png'} 
-                            alt="User Avatar" 
-                            width={38} 
-                            height={38} 
-                        />
+                        <Image src={currentUser.user_metadata.avatar_url || '/user-icon.png'} alt="User Avatar" width={38} height={38} />
                     </button>
                     {showUserMenu && (
                         <div className={styles.userMenu}>

@@ -8,6 +8,11 @@ import styles from './CornerOrb.module.css';
 import { useAuth } from '@/context/AuthContext';
 import { createClient } from '@/lib/supabase/client';
 
+// Define a union type for the menu items to allow for different properties
+type MenuItem = 
+    | { id: string; href: string; icon: string; tooltip: string; type?: never; }
+    | { id: string; type: 'user'; tooltip: string; href?: never; icon?: never; };
+
 export default function CornerOrb({ serverSession }: { serverSession: Session | null }) {
     const pathname = usePathname();
     const router = useRouter();
@@ -20,8 +25,8 @@ export default function CornerOrb({ serverSession }: { serverSession: Session | 
     const currentRole = role || serverSession?.user?.user_metadata?.role;
     const isAdmin = currentRole === 'admin';
 
-    const visibleMenuItems = useMemo(() => {
-        const items = [
+    const visibleMenuItems = useMemo((): MenuItem[] => {
+        const items: MenuItem[] = [
             { id: 'home', href: '/', icon: 'fas fa-home', tooltip: 'Home' },
             { id: 'search', href: '/search', icon: 'fas fa-search', tooltip: 'Search' },
             { id: 'calendar', href: '/calendar', icon: 'fas fa-calendar-alt', tooltip: 'Calendar' },
@@ -88,7 +93,6 @@ export default function CornerOrb({ serverSession }: { serverSession: Session | 
                                     <a href="#" className={`${styles.orbMenuItem} ${styles.userAvatarButton}`} data-tooltip={item.tooltip}>
                                         <Image src={currentUser.user_metadata.avatar_url || '/user-icon.png'} alt="User Avatar" width={48} height={48} />
                                     </a>
-                                    {/* The simple, clean sub-menu from the prototype */}
                                     <div className={styles.profileSubmenu}>
                                         <Link href="/profile" className={styles.submenuButton}><i className="fas fa-user-circle fa-fw"></i> View Profile</Link>
                                         <button onClick={handleLogout} className={styles.submenuButton}><i className="fas fa-sign-out-alt fa-fw"></i> Logout</button>
