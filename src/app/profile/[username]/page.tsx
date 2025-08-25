@@ -1,10 +1,9 @@
 'use client';
-import { useState, useEffect } from 'react';
-import { notFound } from 'next/navigation';
+import { useState, useEffect, useCallback } from 'react';
 import styles from '../profile.module.css';
 import { createClient } from '@/lib/supabase/client';
 import toast from 'react-hot-toast';
-import { useAuth } from '@/context/AuthContext'; // Import useAuth to identify the current user
+import { useAuth } from '@/context/AuthContext';
 
 // Import all layout components
 import Classic from '../layouts/Classic';
@@ -14,6 +13,7 @@ import SidebarFocus from '../layouts/SidebarFocus';
 import DynamicGrid from '../layouts/DynamicGrid';
 import ContentFirst from '../layouts/ContentFirst';
 
+// Define types for the data structures
 type Profile = {
   id: string; 
   full_name: string;
@@ -30,9 +30,15 @@ type Badge = {
     description: string;
 };
 
+// Define the type for the page's props directly
+type UserProfilePageProps = {
+  params: {
+    username: string;
+  };
+};
 
-export default function UserProfilePage({ params }: { params: { username: string } }) {
-  const { user: currentUser } = useAuth(); // Get the currently logged-in user
+export default function UserProfilePage({ params }: UserProfilePageProps) {
+  const { user: currentUser } = useAuth();
   const decodedUsername = decodeURIComponent(params.username);
   const supabase = createClient();
   
@@ -56,10 +62,8 @@ export default function UserProfilePage({ params }: { params: { username: string
       }
       
       setProfile(data);
-      // **FIX**: Check if the viewed profile belongs to the logged-in user
       setIsOwnProfile(currentUser?.id === data.id);
 
-      // Fetch stats and badges concurrently
       const [followersRes, followingRes, badgesRes] = await Promise.all([
           supabase.from('followers').select('*', { count: 'exact', head: true }).eq('user_id', data.id),
           supabase.from('followers').select('*', { count: 'exact', head: true }).eq('followed_by_id', data.id),
@@ -71,7 +75,6 @@ export default function UserProfilePage({ params }: { params: { username: string
       setLoading(false);
     };
     
-    // We need currentUser to be loaded before we can check if it's our own profile
     if(currentUser !== undefined) {
         fetchProfileData();
     }
